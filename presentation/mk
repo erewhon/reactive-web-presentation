@@ -1,0 +1,23 @@
+#!/bin/bash
+## theme=default
+
+pandoc -o presentation.html \
+  -t revealjs               \
+  -V theme=moon             \
+  --incremental             \
+  --mathjax                 \
+  --smart                   \
+  --standalone              \
+  presentation.md
+
+#  --filter pandoc-citeproc  \
+# presentation.yaml
+
+#  --self-contained          \
+
+# pandoc -o presentation.pdf  \
+#   --from=markdown           \
+#   --self-contained          \
+#   --smart                   \
+#   --standalone              \
+#   presentation.md
