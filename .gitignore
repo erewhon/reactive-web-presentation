@@ -2,3 +2,6 @@
 presentation.html
 presentation.pdf
 node_modules
+act3-elm/cache/*
+act3-elm/build/*
+act3-elm/elm_dependencies/*

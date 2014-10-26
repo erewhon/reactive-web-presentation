@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# Start up presentation.  Can develop it in this mode as well!  Nifty!
+#
+
+#
+# Open the presentation!
+#
+open presentation/presentation.html
+
+#
+# Elm build environment
+#
+(cd act3-elm && elm-reactor &)
+sleep 1 && open http://localhost:8000/

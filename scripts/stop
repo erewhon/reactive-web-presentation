@@ -1,0 +1,5 @@
+#!/bin/bash
+#
+# shut down presentation
+
+killall elm-reactor-unwrapped

@@ -152,7 +152,7 @@ http://philipnilsson.github.io/badness/
 ## Elm
 
 - First order FRP
-- Haskell-like syntax
+- Haskell-like syntax ([but not Haskell](https://groups.google.com/forum/#!msg/elm-discuss/rI_IAf4TiAA/KTvQv1LQ6uAJ))
 - Code hot swapping!  In the browser!
 - Time traveling debugger!
 
@@ -173,9 +173,33 @@ main = asText "Hello world"
 
 ## Getting started
 
+- elm_dependencies.json
+
+```javascript
+{
+    "version": "0.5",
+    "summary": "Schnippets!",
+    "description": "Schnippet!",
+    "license": "BSD3",
+    "exposed-modules": [],
+    "elm-version": "0.13",
+    "dependencies": {
+        "evancz/elm-html": "0.2"
+    },
+    "repository": "https://github.com/USER/PROJECT.git"
+}
+```
+
+- elm-get install
+- elm --make --only-js Schnippets.elm
+- elm-reactor
+
+<aside class="notes">
 - https://github.com/elm-lang/elm-platform
 - https://github.com/michaelbjames/elm-examples
+</aside>
 
+## Demo - Schnippets
 
 # Bonus
 

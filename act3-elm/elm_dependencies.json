@@ -1,0 +1,12 @@
+{
+    "version": "0.5",
+    "summary": "Schnippets!",
+    "description": "Schnippet!",
+    "license": "BSD3",
+    "exposed-modules": [],
+    "elm-version": "0.13",
+    "dependencies": {
+        "evancz/elm-html": "0.2"
+    },
+    "repository": "https://github.com/USER/PROJECT.git"
+}
