@@ -247,6 +247,14 @@ Also Facebook, Flickr, Twitter...
 </aside>
 
 
+## Further Reading
+
+Other AltJs: Roy, Haste, Fay, Elm, GHCJS, PureScript.
+
+<aside>
+http://purescript.readthedocs.org/en/latest/intro.html#related-projects
+</aside>
+
 ## References
 
 http://www.reactivemanifesto.org/
