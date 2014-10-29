@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript" src="bower_components/bacon/lib/jquery.js"></script>
+    <script type="text/javascript" src="bower_components/bacon/dist/Bacon.js"></script>
+    <script type="text/javascript" src="bower_components/handlebars/handlebars.js"></script>
+
+    <script id="main-template" type="text/x-handlebars-template">
+        <div class="someclass">
+            <section id="schnippetsapp">
+                <header id="header">
+                    <h1>Schnippets</h1>
+
+                    <input id="new-schnippet" placeholder="What did you do?" autofocus="true" name="newSchnippets"/>
+                </header>
+
+                <section id="main">
+                </section>
+
+                <footer id="info">
+                    <p>Enter a schnippet</p>
+                    <p>Written by <a href="https://erewhon.flatland.org/">Steven Byrnes</a></p>
+                </footer>
+            </section>
+        </div>
+    </script>
+
+    <script id="schnippet-list-template" type="text/x-handlebars-template">
+        <ul id="schnippet-list">
+            {{#each schnippets}}
+            <li>
+                <div class="view">
+                    <span>{{schnippet}}</span>
+                </div>
+            </li>
+            {{/each}}
+        </ul>
+    </script>
+    <script type="text/javascript" src="act2.js"></script>
+  </head>
+
+  <body>
+  </body>
+</html>
+
+
+
+

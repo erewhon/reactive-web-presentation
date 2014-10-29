@@ -2,6 +2,9 @@
 presentation.html
 presentation.pdf
 node_modules
+act2-baconjs/bower_components/*
 act3-elm/cache/*
 act3-elm/build/*
 act3-elm/elm_dependencies/*
+reactive-web.iml
+.idea/*

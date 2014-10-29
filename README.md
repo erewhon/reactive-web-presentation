@@ -11,6 +11,22 @@ todo:
 - custom javascript to end of document for reveal.js customization
 
 
+To keep things somewhat of an apples-to-apples comparison, we try to
+minimize external dependencies.  But we're also trying to keep the
+same semantics.  Since the Elm code builds HTML in the code itself, in
+the Javascript-based examples, I'm doing everything in Javascript.
+That includes using Javascript templates.  (Handlebars is my weapon of
+choice.)
+
+
+# Initialization
+
+## Act 2 - BaconJS
+
+    cd act2-baconjs && bower install bacon
+
+
+
 # Actions
 
 ## Presentation
