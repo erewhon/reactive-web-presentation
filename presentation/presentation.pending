@@ -1,0 +1,18 @@
+- Todo apps seem to be the norm.  I'm going to do something simpler /
+  different: Buttonz.  Have some D3 for fun.
+- Schnippets / documental.
+- Func(this)
+
+
+
+From bacon FAQ:
+
+     Doesn't this turn "callback" hell into "mapfiltercombine" hell?
+     How I will integrate a new developer to my FRP code?
+
+     What FRP does to callback hell is the same thing that FP does to
+     for-loops. Some may argue that for-loops are easier to read than
+     a map-filter-combo. It's the same thing with all new tools. Some
+     managers fear that their employees will never learn Scala, so
+     everything has to be written in Java. Would you still like to
+     write code in Cobol?

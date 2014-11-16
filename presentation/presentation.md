@@ -11,22 +11,13 @@
 
 <aside class="notes">
 
-What is Functional Reactive Programming?
-
-Sense of time.
-
-
-
-
 I'm not going to do a game.  I can barely play angry birds, and it was
 done very well last month, so I'm not going to do that.
 
-"Last month, the richness of the Javascript ecosystem was mentioned.
-It's beyond rich… it's ridiculous."
+Last month, the richness of the Javascript ecosystem was mentioned.
+It's beyond rich… it's ridiculous.
 
-https://github.com/hakimel/reveal.js
-
-
+This presentation is in Reveal.JS.  I highly recommend it.  Good stuff...
 
 </aside>
 
@@ -34,7 +25,10 @@ https://github.com/hakimel/reveal.js
 
 <aside class="notes">
 
+How many people have worked with Reactive Programming or FRP?
+
 First, why the scare parenthesis?
+
 
 I put the functional in parenthesis, as some things are not really
 functional reactive, but merely reactive.  At it's simplest, think of
@@ -42,9 +36,10 @@ a spreadsheet.  You update a cell, and if that cell is referenced
 elsewhere, they are automatically recomputed.
 
 RxJava started calling themself FRP, but changed it to just RP.
-However, according to presentation at [Strangeloop][SL2014], put it under formulation of FRP
+However, according to presentation at [Strangeloop][SL2014], put it under formulation of FRP.
 
 
+Basically, it depends on your sense of time.
 
 </aside>
 
@@ -58,7 +53,6 @@ First, let's talk about what it is.
 
 
 ## Definition
-
 
 > Functional reactive programming (FRP) is a programming
 > paradigm for reactive programming using the building blocks
@@ -74,11 +68,13 @@ First, let's talk about what it is.
 
 ![](images/LolWut!.gif)
 
-## Continuous vs discrete time
+## Continuous vs discrete
 
 <aside class="">
 
-For some systems, 
+In languages and environments with discrete semantics, updates are per event.  Elm works this way.  We'll get to that later.
+
+But what's the alternative?  Continuous semantics.  It uses continuous functions that vary over time.
 
 </aside>
 
@@ -86,7 +82,9 @@ For some systems,
 
 <aside class="">
 
-In some FRP systems, events are pushed to you.  In others, you pull events.
+In some FRP systems, events are pushed to you.  In others, you pull events.  (When you want the result, it works back to see what you want.)
+
+There is also a hybrid type, push-pull.  For example, some pull-based streams could act like lazy lists.  Events from the user, for example, would be push-based streams.
 
 </aside>
 
@@ -102,10 +100,13 @@ Things like can you add and remove event streams dynamically?
 
 ## Why?
 
-- Easier to follow flow
 - Declarative rather than imperative
+- Easier to follow flow
 - Composability
 - Functional or fluent interfaces
+
+<aside class="notes">
+</aside>
 
 # Act 1 - "Old Sk00l"
 
@@ -128,17 +129,13 @@ Google has something called Snippets, which they use internally for
 people to record what they've done.  Think of a combination of status
 reports, progress meetings, and a work diary.
 
-A commericial offering that attempts to produce this is [iDoneThis](https://idonethis.com/home/).
+A commercial offering that attempts to produce this is [iDoneThis](https://idonethis.com/home/).
 
 Let's create a simple thing.  Call it Schnippets.
 
-Basically, there are 2 main models.
+Basically, there is 1 main model: status report.  To keep it simple, let's just take a big block of text.  Perhaps we can treat it as markdown.  We'll call this a Schnippet.
 
-1. A status report.  To keep it simple, let's just take a big block of
-   text.  Perhaps we can treat it as markdown.  We'll call this a
-   Schnippet.
-2. A user.  Someone who logs into the system.  They have an email
-   address so we can bug them.
+There are other concepts, like a user.  Someone who logs into the system.  They have an email address so we can bug them.
 
 We can add things like following relationships.  Perhaps tags for the
 person or the schnippet.  We can get fancier later.
@@ -153,10 +150,11 @@ http://localhost:8080/act1-jquery/schnippets.html
 
 Ok, so that's boring.  It doesn't do anything.
 
-Not very composable.
+Actually, it does some simple validation thanks to HTML5.
 
-Very very simple.  Honestly, almost no styling.  I could have added
-bootstrap.  But decided not to.
+Also, it isn't very composable.
+
+Very very simple.  Honestly, almost no styling.  I could have added bootstrap.  But decided not to.
 
 </aside>
 
@@ -200,13 +198,13 @@ So, this isn't too bad.  What are some of the problems?
 - It has callbacks.  You can start running into issues with nested callbacks
   if you have async behavior in your callbacks.  That can get messy quickly.
 - Lack of type safety.
-- Lack of property safety.  I can type the wrong property and it will still run.
+- Lack of property safety.  I can type the wrong property and it will still run... poorly.
   It just won't work the way you want to.
-- Two languages: HTML and Javascript.  There are HTML tags in the Javascript.
+- You're dealing with two languages: HTML and Javascript.  Actually 3 if you include CSS.  There are HTML tags in the Javascript.
   You can mitigate it with templates, but still not ideal.  Also, nothing is
   making sure your selectors are named the same in your code and in your markup.
 - No composability.  So I'm repeating HTML over and over again.
-  Templates can help with that.
+  Again, templates can help with that.
 
 Now, some of these issues we don't have a good answer for.  Although
 certain IDEs are smart enough to tell you you're messing up.  (For
@@ -232,10 +230,14 @@ library.
 
 <aside class="notes">
 
-Can help with callback hell
+Can help with callback hell.
 Client and server side
 
-<aside>
+</aside>
+
+
+## Demo
+
 
 ## Bacon.JS
 
@@ -244,9 +246,11 @@ BaconJS?
 . . .
 
 ![Double bacon](images/ApXfKXgCIAAdg0S.jpg)
+
 <aside class="notes">
 include link to https://twitter.com/archerprod/status/186300328801607680
 </aside>
+
 
 ## Bacon.JS
 
@@ -257,9 +261,12 @@ No... neither of those...
 ![http://baconjs.github.io/](images/baconjs-logo.png)
 
 <aside class="notes">
-http://baconjs.github.io/
-http://philipnilsson.github.io/badness/
+
+It's very similar to RxJS.  Actually, it's inspired by RxJS.  It has 2 flavors of observable: EventStream and Property.  (xxx : what?)  
+
 </aside>
+
+## Demo
 
 # Act 3 - First Class FRP
 
@@ -407,6 +414,8 @@ ClojureScript, core.logic?)
 
 # Fin
 
+![](images/1654069.jpg)
+
 ## About
 
 erewhon<br/>
@@ -435,26 +444,43 @@ http://purescript.readthedocs.org/en/latest/intro.html#related-projects
 ## References
 
 [SL2014]: https://www.youtube.com/watch?v=Agu6jipKfYw "Controlling Time And Space: understanding the many formulations of FRP"
+[ReMan]: http://www.reactivemanifesto.org/
+[Hipster]:http://www.infoq.com/presentations/game-functional-reactive-programming
+[Missing]:https://gist.github.com/staltz/868e7e9bc2a7b8c1f754
+[Learn]:http://reactive-extensions.github.io/learnrx/
+
+Good presentations:
+- SL2014
+- Missing
+- Hipster
+- Learn
+
+RxJS:
+- [Site](https://github.com/Reactive-Extensions/RxJS)
+- [Main Site](http://reactive-extensions.github.io/RxJS/)
+- [Examples](https://github.com/Reactive-Extensions/RxJS/tree/master/examples)
+- [Firebase binding](https://gist.github.com/gsoltis/ee20138502a4764650f2)
+- [Time Flies like an Arrow](http://jsfiddle.net/mattpodwysocki/9EjSQ/)
+
+BaconJS:
+-
+- [Making a snake game in BaconJS](http://philipnilsson.github.io/badness/)
 
 
-http://www.reactivemanifesto.org/
+Elm:
+- [Site](http://elm-lang.org/)
+- [Elmtris](https://github.com/jcollard/elmtris)
+- [Pong](http://elm-lang.org/edit/examples/Intermediate/Pong.elm)
 
-<script>
+Pong? Tetris?  Snake?
 
-// Kind of a hack, but seems to work!
+Other interesting projects:
 
-//setTimeout(function() {
-//  Reveal.initialize({
-//      dependencies: [
-//        // Remote control your reveal.js presentation using a touch device
-//        { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
-//     ]});
-//
-// }, 500);
-
-</script>
+- [Radioactive](https://www.npmjs.org/package/radioactive)
 
 
-http://pchiusano.github.io/2014-07-02/css-is-unnecessary.html
-https://gist.github.com/evancz/2b2ba366cae1887fe621
-https://github.com/evancz/elm-todomvc
+
+
+> http://pchiusano.github.io/2014-07-02/css-is-unnecessary.html
+> https://gist.github.com/evancz/2b2ba366cae1887fe621
+> https://github.com/evancz/elm-todomvc
