@@ -70,7 +70,7 @@ First, let's talk about what it is.
 
 ## Continuous vs discrete
 
-<aside class="">
+<aside class="notes">
 
 In languages and environments with discrete semantics, updates are per event.  Elm works this way.  We'll get to that later.
 
@@ -80,7 +80,7 @@ But what's the alternative?  Continuous semantics.  It uses continuous functions
 
 ## Push vs pull
 
-<aside class="">
+<aside class="notes">
 
 In some FRP systems, events are pushed to you.  In others, you pull events.  (When you want the result, it works back to see what you want.)
 
@@ -94,7 +94,7 @@ There is also a hybrid type, push-pull.  For example, some pull-based streams co
 
 From presentation.
 
-Things like can you add and remove event streams dynamically?
+Things like can you add and remove event streams dynamically?  Synchronous vs asynchronous.  Infinite signals.
 
 </aside>
 
@@ -180,6 +180,17 @@ $(function() {
 });
 ~~~~~~~
 
+---------
+
+~~~~~~~~
+$  diff -u act1-html/schnippets.html act1-jquery/schnippets.html
+     <link rel="stylesheet" href="../schnippets.css">
++    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
++    <script type="text/javascript" src='https://cdn.firebase.com/js/client/1.1.1/firebase.js'></script>
++    <script type="text/javascript" src="application.js"></script>
+   </head>
+~~~~~~~~
+
 <aside class="notes">
 
 While jQuery isn't "reactive", it isn't procedural either.
@@ -209,6 +220,8 @@ So, this isn't too bad.  What are some of the problems?
 Now, some of these issues we don't have a good answer for.  Although
 certain IDEs are smart enough to tell you you're messing up.  (For
 example, some of the Jetbrains IDEs.)
+
+So we compare the plain HTML and jQuery version, and there's basically no difference between the markup, except we've included some Javascript.  (I'm not going to do this kind of diff, but for the most part, this will be the story going forward.)
 
 </aside>
 
@@ -448,6 +461,7 @@ http://purescript.readthedocs.org/en/latest/intro.html#related-projects
 [Hipster]:http://www.infoq.com/presentations/game-functional-reactive-programming
 [Missing]:https://gist.github.com/staltz/868e7e9bc2a7b8c1f754
 [Learn]:http://reactive-extensions.github.io/learnrx/
+https://www.youtube.com/watch?v=FAZJsxcykPs&list=PLfXiENmg6yyU5kEHyo1kYkq7HEzBOoiTT
 
 Good presentations:
 - SL2014

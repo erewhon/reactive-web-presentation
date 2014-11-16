@@ -3,7 +3,7 @@
   <head>
     <link rel="stylesheet" href="../schnippets.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src='https://cdn.firebase.com/js/client/1.1.1/firebase.js'></script>
+    <script type="text/javascript" src='https://cdn.firebase.com/js/client/1.1.1/firebase.js'></script>
     <script type="text/javascript" src="application.js"></script>
   </head>
 
@@ -18,11 +18,11 @@
 
         <br/>
 
-        <textarea id="new-schnippet" class="toppad" placeholder="What did you do today?" 
-                  required="required" autofocus=true></textarea>
-        
+        <textarea id="new-schnippet" class="toppad" placeholder="What did you do today?"
+                  required="required" autofocus=true name="newSchnippet"></textarea>
+
         <br/>
-          
+
         <input id="save-schnippet" type="submit" class="toppad" value="Save">
       </form>
     </div>
