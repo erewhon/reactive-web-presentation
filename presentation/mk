@@ -1,14 +1,22 @@
 #!/bin/bash
 ## theme=default
 
+#  -V theme=default          \
+# sky,beige,simple,serif,night,moon,solarized
+#  --highlight-style=tango \
+# pygments,kate,monochrome,espresso,haddock,tango,zenburn
+
 pandoc -o presentation.html \
   -t revealjs               \
-  -V theme=moon             \
+  -V theme=default          \
   --incremental             \
   --mathjax                 \
   --smart                   \
   --standalone              \
   presentation.md
+
+# --include-after-body=client.js
+
 
 #  --filter pandoc-citeproc  \
 # presentation.yaml

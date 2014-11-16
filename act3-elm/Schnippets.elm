@@ -101,7 +101,7 @@ schnippetEntry schnippet =
        [ h1 [] [ text "Schnippets" ]
        , input
          [ id "new-schnippet"
-         , placeholder "What did you do?"
+         , placeholder "What did you do today?"
          , autofocus True
          , value schnippet
          , name "newSchnippet"

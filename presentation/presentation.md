@@ -9,40 +9,17 @@
 > BaconJS. F# may make a brief guest appearance in the stack as
 > well.
 
-
 <aside class="notes">
-
-Why the scare parenthesis?
-
-(I put the functional in parenthesis, as some things are not really
-functional reactive, but merely reactive.)  At it's simplest, think of
-a spreadsheet.  You update a cell, and if that cell is referenced
-elsewhere, they are automatically recomputed.
-
-
 
 What is Functional Reactive Programming?
 
 Sense of time.
 
-RxJava started calling themself FRP, but changed it to just RP.
 
 
-According to presentation at Strangeloop, put it under formulation of FRP
 
-https://www.youtube.com/watch?v=Agu6jipKfYw
-
-Get into continuous and discrete time semantics.
-
-
-I'm not going to do a game.  I can barely play angry birds, so I'm not
-going to do that.
-
-- Todo apps seem to be the norm.  I'm going to do something simpler /
-  different: Buttonz.  Have some D3 for fun.
-- Schnippets / documental.
-- Func(this)
-
+I'm not going to do a game.  I can barely play angry birds, and it was
+done very well last month, so I'm not going to do that.
 
 "Last month, the richness of the Javascript ecosystem was mentioned.
 It's beyond rich… it's ridiculous."
@@ -55,73 +32,197 @@ https://github.com/hakimel/reveal.js
 
 # What is (F)RP?
 
+<aside class="notes">
+
+First, why the scare parenthesis?
+
+I put the functional in parenthesis, as some things are not really
+functional reactive, but merely reactive.  At it's simplest, think of
+a spreadsheet.  You update a cell, and if that cell is referenced
+elsewhere, they are automatically recomputed.
+
+RxJava started calling themself FRP, but changed it to just RP.
+However, according to presentation at [Strangeloop][SL2014], put it under formulation of FRP
+
+
+
+</aside>
+
 ## Reactive Programming
 
+<aside class="notes">
+
+First, let's talk about what it is.
+
+</aside>
 
 
 ## Definition
 
-Per Wikipedia:
 
 > Functional reactive programming (FRP) is a programming
 > paradigm for reactive programming using the building blocks
 > of functional programming. FRP has been used for
 > programming *graphical user interfaces* (GUIs), robotics, and music,
 > aiming to simplify these problems by explicitly modeling time.
+>
+> &mdash; <cite>[Wikipedia][1]</cite>
 
-## Huh?
+[1]:http://en.wikipedia.org/wiki/Functional_reactive_programming
 
-## Continuous vs discrete
+## What?
+
+![](images/LolWut!.gif)
+
+## Continuous vs discrete time
+
+<aside class="">
+
+For some systems, 
+
+</aside>
 
 ## Push vs pull
 
+<aside class="">
+
+In some FRP systems, events are pushed to you.  In others, you pull events.
+
+</aside>
+
 ## Different constraints
-
-
 
 <aside class="notes">
 
 From presentation.
 
+Things like can you add and remove event streams dynamically?
+
 </aside>
 
 ## Why?
 
-Easier to follow flow
+- Easier to follow flow
+- Declarative rather than imperative
+- Composability
+- Functional or fluent interfaces
 
-Declarative rather than imperative
-
-Composability
-
-Functional or fluent interfaces
-
-# Act 1 - Plain JS
-
-## A Simple Model
+# Act 1 - "Old Sk00l"
 
 <aside class="notes">
 
-Canonical example for MVC frameworks is the todo app.  Let's try a
+Act 1 : Set Up
+
+</aside>
+
+## A Simple Model
+
+... include a sketch here of a screen ...
+
+<aside class="notes">
+
+The canonical example for MVC frameworks is the todo app.  Let's try a
 couple of other things...
 
-Google Snippets, or iDoneThis... let's create Schnippets.
+Google has something called Snippets, which they use internally for
+people to record what they've done.  Think of a combination of status
+reports, progress meetings, and a work diary.
+
+A commericial offering that attempts to produce this is [iDoneThis](https://idonethis.com/home/).
+
+Let's create a simple thing.  Call it Schnippets.
+
+Basically, there are 2 main models.
+
+1. A status report.  To keep it simple, let's just take a big block of
+   text.  Perhaps we can treat it as markdown.  We'll call this a
+   Schnippet.
+2. A user.  Someone who logs into the system.  They have an email
+   address so we can bug them.
+
+We can add things like following relationships.  Perhaps tags for the
+person or the schnippet.  We can get fancier later.
+
+</aside>
+
+## Just HTML
+
+<aside class="notes">
+
+http://localhost:8080/act1-jquery/schnippets.html
+
+Ok, so that's boring.  It doesn't do anything.
+
+Not very composable.
+
+Very very simple.  Honestly, almost no styling.  I could have added
+bootstrap.  But decided not to.
 
 </aside>
 
 ## jQuery
 
-```javascript
+~~~~~~~ {.javascript .numberLines}
+$("button#specialness")
+  .html("Don't click here!")
+  .on( "click", somethingMagickal );
+~~~~~~~
+
+--------
+
+For example:
+
+~~~~~~~ {.javascript .numberLines}
 $(function() {
-})
-```
+
+    $("#save-schnippet").on("click", function(event) {
+        event.preventDefault();
+        alert('you entered: ' + $("#new-schnippet").val());
+    });
+});
+~~~~~~~
+
+<aside class="notes">
+
+While jQuery isn't "reactive", it isn't procedural either.
+
+One could consider it a fluent interface.
+
+Now, this is pretty simple.  However, it still has callbacks.  So you
+start running into issues with nested callbacks.
+
+Of course, there are some other issues just by nature of using
+Javascript, like lack of type safety, which we'll get to later...
+
+Since this is a presentation about web development, I'm not going to
+get into any backup API.  So I'm going to use Firebase, one of the
+database-as-a-services out there.  (And which recently was bought by
+Google.)
+
+</aside>
 
 # Act 2 - Reactive
 
+<aside class="notes">
+
+Act 2 : Confrontation
+
+Where we use an existing language (Javascript), and use a Reactive
+library.
+
+</aside>
+
 ## RxJS
 
-- http://reactive-extensions.github.io/RxJS/
+- [http://reactive-extensions.github.io/RxJS/](http://reactive-extensions.github.io/RxJS/)
 - $RxJS = Observables + LINQ + Schedulers$
 
+<aside class="notes">
+
+Can help with callback hell
+Client and server side
+
+<aside>
 
 ## Bacon.JS
 
@@ -147,7 +248,14 @@ http://baconjs.github.io/
 http://philipnilsson.github.io/badness/
 </aside>
 
-# Act 3 - FRP
+# Act 3 - First Class FRP
+
+<aside class="notes">
+
+Act 3 : Resolution
+
+</aside>
+
 
 ## Elm
 
@@ -157,7 +265,9 @@ http://philipnilsson.github.io/badness/
 - Time traveling debugger!
 
 <aside class="notes">
-Very similar to Haskell.
+
+Very similar to Haskell.  But also borrows some syntax from F#.
+
 FRP.
 How swapping!  In the browser!
 Time traveling debugger!  Reactor!
@@ -175,7 +285,7 @@ main = asText "Hello world"
 
 - elm_dependencies.json
 
-```javascript
+~~~~ {.javascript .numberLines}
 {
     "version": "0.5",
     "summary": "Schnippets!",
@@ -188,7 +298,7 @@ main = asText "Hello world"
     },
     "repository": "https://github.com/USER/PROJECT.git"
 }
-```
+~~~~
 
 - elm-get install
 - elm --make --only-js Schnippets.elm
@@ -200,6 +310,60 @@ main = asText "Hello world"
 </aside>
 
 ## Demo - Schnippets
+
+    $ cd act3-elm && elm-reactor
+    Elm Reactor 0.1, backed by version 0.13 of the compiler.
+    Listening on http://localhost:8000/
+
+<aside class="notes">
+
+Let's look at this in the Elm reactor.
+
+First, let's look at a simple Elm program with embedded markdown.
+
+Then, let's look at Schnippets.
+
+</aside>
+
+# Epilogue
+
+## Functional?  Reactive?
+
+<aside class="notes">
+
+So, Elm is a decent amount of code on the surface.  But over half of
+it is the HTML.  But how much of it is the magical FRP bits?  Let's
+try writing some functional code.
+
+</aside>
+
+## F&sharp;
+
+<aside class="notes">
+
+So, just for shiggles, let's do it in F#
+
+</aside>
+
+## F&sharp;?
+
+<aside class="notes">
+
+Yes, F#.  In the browser.
+
+</aside>
+
+## How
+
+- WebSharper
+- FunScript
+
+<aside class="notes">
+
+These are both projects that take F# and compile it to Javascript.
+Yes... yes they do.
+
+</aside>
 
 # Bonus
 
@@ -257,6 +421,9 @@ http://purescript.readthedocs.org/en/latest/intro.html#related-projects
 
 ## References
 
+[SL2014]: https://www.youtube.com/watch?v=Agu6jipKfYw "Controlling Time And Space: understanding the many formulations of FRP"
+
+
 http://www.reactivemanifesto.org/
 
 <script>
@@ -273,3 +440,8 @@ http://www.reactivemanifesto.org/
 // }, 500);
 
 </script>
+
+
+http://pchiusano.github.io/2014-07-02/css-is-unnecessary.html
+https://gist.github.com/evancz/2b2ba366cae1887fe621
+https://github.com/evancz/elm-todomvc
