@@ -77,5 +77,19 @@ todo : auto rebuild using Gulp?
 
 
 
+Things to research:
+- how to include a file in the presentation?  (including html or similar)
+- add a markdown library so we can render it?
 
-how to include a file in the presentation?
+
+Firebase:
+- email and password
+- facebook
+- twitter
+- github
+- google
+
+
+https://www.userapp.io/ ?
+
+

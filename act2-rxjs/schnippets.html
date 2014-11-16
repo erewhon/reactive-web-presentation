@@ -1,23 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <link rel="stylesheet" href="../schnippets.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/bacon.js/0.7.33/Bacon.min.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
-
-    <script id="schnippet-list-template" type="text/x-handlebars-template">
-        <dl id="schnippet-list">
-            {{#each schnippets}}
-            <dt class="schnippet-date">
-                {{dte}}
-            </dt>
-            <dd class="schnippet-value">
-                {{schnippet}}
-            </dd>
-            {{/each}}
-        </dl>
-    </script>
+    <script src='https://cdn.firebase.com/js/client/1.1.1/firebase.js'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/rxjs/2.3.18/rx.all.js'></script>
     <script type="text/javascript" src="application.js"></script>
   </head>
 
@@ -43,15 +30,11 @@
 
     <div class="toppad">
       Previous schnippets:
-      <section id="main">
-      </section>
-
       <dl id="schnippet-list">
       </dl>
     </div>
 
     <footer id="info">
       <p>Written by <a href="https://erewhon.flatland.org/">Steven Byrnes</a>.</p>
-    </footer>
   </body>
 </html>

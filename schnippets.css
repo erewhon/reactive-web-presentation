@@ -5,15 +5,12 @@ body {
     border:  1px dashed #333;
 }
 
-div.someclass {
-}
-
 .toppad {
     margin-top: 1em;
 }
 
-#schnippet-date {
-    width: 100px;
+#new-date {
+/*    width: 100px; */
 }
 
 #new-schnippet {
@@ -22,4 +19,15 @@ div.someclass {
 }
 
 #schnippet-list {
+}
+
+.schnippet-date {
+    font-weight: bold;
+}
+
+.schnippet-value {
+}
+
+.delete-button {
+    float: right;
 }

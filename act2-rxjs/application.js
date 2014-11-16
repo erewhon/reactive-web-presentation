@@ -1,8 +1,6 @@
-// todo :
-// - instead, do child_added, child_removed, etc. and just call displaySchnippet once!
-// - markdown rendering!
-// - console.log( $('#schnippet-form').serializeArray() );
-
+//
+// RxJS!
+//
 $(function() {
 
     var schnippets = new Firebase('https://schnippets.firebaseio.com/schnippets');

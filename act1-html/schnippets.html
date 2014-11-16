@@ -11,13 +11,12 @@
       <form>
         <p>Enter a schnippet:</p>
 
-        <input id="schnippet-date" placeholder="Enter date">
+        <input id="new-date" required type="date" placeholder="Enter date">
 
         <br/>
 
         <textarea id="new-schnippet" class="toppad" placeholder="What did you do today?" 
-                  autofocus=true name="newSchnippet">What did you do today?
-        </textarea>
+                  required="required" autofocus=true name="newSchnippet"></textarea>
         
         <br/>
           
@@ -27,9 +26,12 @@
 
     <div class="toppad">
       Previous schnippets:
-      <dl>
-        <dt>2014/11/03</dt>
-        <dd>Schnippet 1</dd>
+      <dl id="schnippet-list">
+        <dt class="schnippet-date">
+          2014/11/03
+          <button class='delete-button' data-key='hah'>Delete</button>
+        </dt>
+        <dd class="schnippet-value">Schnippet 1</dd>
       </dl>
     </div>
 

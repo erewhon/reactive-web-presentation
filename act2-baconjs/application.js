@@ -1,6 +1,5 @@
 $(function () {
 
-    var main_template = Handlebars.compile( $("#main-template").html() );
     var list_template = Handlebars.compile( $("#schnippet-list-template").html() );
 
     var state = { schnippets: [] };
@@ -11,7 +10,6 @@ $(function () {
         $("#main").html(list_template(state));
     }
 
-    $("body").html(main_template());
     render();
 
     function enterKey(element) {
@@ -27,40 +25,34 @@ $(function () {
             return textfield.val()
         }
 
-//        function autofillPoller() {
-//          if (textfield.attr("type") == "password")
-//            return Bacon.interval(100)
-//          else if (isChrome)
-//            return Bacon.interval(100).take(20).map(getValue).filter(nonEmpty).take(1)
-//          else
-//            return Bacon.never()
-//        }
         if (initValue !== null) {
             textfield.val(initValue)
         }
         return textfield.asEventStream("keyup input").
             merge(textfield.asEventStream("cut paste").delay(1)).
-            //merge(autofillPoller()).
             map(getValue).toProperty(getValue()).skipDuplicates()
     }
 
     // Let's build the list.  Borrowed from TodoMVC
-    var entry = $("#new-schnippet");
+    var entry = $("#new-schnippet"),
+        dte   = $("#new-date");
     var newId = enterKey(entry).map(function () {
         return new Date().getTime();
     });
 
     var schnippetAdded = Bacon.combineTemplate({
         id: newId,
-        schnippet: Bacon.UI.textFieldValue(entry).map('.trim')
-    }).sampledBy(newId).filter('.schnippet');
+        schnippet: Bacon.UI.textFieldValue(entry).map('.trim'),
+        dte: Bacon.UI.textFieldValue(dte)
+    }).sampledBy(newId);
 
-    schnippetAdded.onValue(function (txt) {
-        entry.val('');
+    schnippetAdded.onValue(function (obj) {
+      console.log(obj);
+      entry.val('');
 
-        state.schnippets.push(txt);
+      state.schnippets.push(obj);
 
-        render();
+      render();
     });
 
     // todo : wire up event stream from keyboard; add to state; repaint

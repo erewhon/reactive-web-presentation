@@ -11,16 +11,15 @@
     <h1>Schnippets</h1>
 
     <div>
-      <form>
+      <form id='schnippet-form'>
         <p>Enter a schnippet:</p>
 
-        <input id="schnippet-date" placeholder="Enter date">
+        <input id="new-date" required="required" type="date" placeholder="Enter date">
 
         <br/>
 
         <textarea id="new-schnippet" class="toppad" placeholder="What did you do today?" 
-                  autofocus=true name="newSchnippet">What did you do today?
-        </textarea>
+                  required="required" autofocus=true></textarea>
         
         <br/>
           
@@ -31,12 +30,11 @@
     <div class="toppad">
       Previous schnippets:
       <dl id="schnippet-list">
-        <dt>2014/11/03</dt>
-        <dd>Schnippet 1</dd>
       </dl>
     </div>
 
     <footer id="info">
-      <p>Written by <a href="https://erewhon.flatland.org/">Steven Byrnes</a></p>
+      <p>Written by <a href="https://erewhon.flatland.org/">Steven Byrnes</a>.</p>
+    </footer>
   </body>
 </html>

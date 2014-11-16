@@ -188,16 +188,29 @@ While jQuery isn't "reactive", it isn't procedural either.
 
 One could consider it a fluent interface.
 
-Now, this is pretty simple.  However, it still has callbacks.  So you
-start running into issues with nested callbacks.
-
-Of course, there are some other issues just by nature of using
-Javascript, like lack of type safety, which we'll get to later...
-
 Since this is a presentation about web development, I'm not going to
-get into any backup API.  So I'm going to use Firebase, one of the
+get into any backend API.  So I'm going to use Firebase, one of the
 database-as-a-services out there.  (And which recently was bought by
 Google.)
+
+
+
+So, this isn't too bad.  What are some of the problems?
+
+- It has callbacks.  You can start running into issues with nested callbacks
+  if you have async behavior in your callbacks.  That can get messy quickly.
+- Lack of type safety.
+- Lack of property safety.  I can type the wrong property and it will still run.
+  It just won't work the way you want to.
+- Two languages: HTML and Javascript.  There are HTML tags in the Javascript.
+  You can mitigate it with templates, but still not ideal.  Also, nothing is
+  making sure your selectors are named the same in your code and in your markup.
+- No composability.  So I'm repeating HTML over and over again.
+  Templates can help with that.
+
+Now, some of these issues we don't have a good answer for.  Although
+certain IDEs are smart enough to tell you you're messing up.  (For
+example, some of the Jetbrains IDEs.)
 
 </aside>
 
