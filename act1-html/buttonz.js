@@ -2,11 +2,7 @@
 
 var Stopwatch = function(elem, options) {
 
-  var timer       = createTimer(),
-      startButton = createButton("start", start),
-      stopButton  = createButton("stop", stop),
-      resetButton = createButton("reset", reset),
-      offset,
+  var offset,
       clock,
       interval;
 
@@ -14,31 +10,10 @@ var Stopwatch = function(elem, options) {
   options = options || {};
   options.delay = options.delay || 1;
 
-  // append elements
-  elem.appendChild(timer);
-  elem.appendChild(startButton);
-  elem.appendChild(stopButton);
-  elem.appendChild(resetButton);
-
   // initialize
   reset();
 
   // private functions
-  function createTimer() {
-    return document.createElement("span");
-  }
-
-  function createButton(action, handler) {
-    var a = document.createElement("a");
-    a.href = "#" + action;
-    a.innerHTML = action;
-    a.addEventListener("click", function(event) {
-      handler();
-      event.preventDefault();
-    });
-    return a;
-  }
-
   function start() {
     if (!interval) {
       offset   = Date.now();
@@ -53,22 +28,16 @@ var Stopwatch = function(elem, options) {
     }
   }
 
-  function getTime() {
-      return clock;
+  function getElapsed() {
+      return clock/1000;
   }
 
   function reset() {
     clock = 0;
-    render();
   }
 
   function update() {
     clock += delta();
-    render();
-  }
-
-  function render() {
-    timer.innerHTML = clock/1000;
   }
 
   function delta() {
@@ -83,7 +52,7 @@ var Stopwatch = function(elem, options) {
   this.start  = start;
   this.stop   = stop;
   this.reset  = reset;
-  this.getTime = getTime;
+  this.getElapsed = getElapsed;
 };
 
 var sleepWatch = new Stopwatch(document.getElementById('Sleep'));
@@ -122,50 +91,52 @@ var outerArc = d3.svg.arc()
 svg.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 var key = function(d){ return d.data.label; };
+var transition_delay = 1; // was 1000
 
 var color = d3.scale.ordinal()
 	.domain(["Sleep", "Work", "Play"])
 	.range(["#98abc5", "#8a89a6", "#7b6888"]);
 
-function randomData (){
-	var labels = color.domain();
-	return labels.map(function(label){
-		return { label: label, value: Math.random() }
-	});
-}
+var states = [ { label: 'Sleep', timer: sleepWatch },
+               { label: 'Work',  timer: workWatch },
+               { label: 'Play',  timer: playWatch } ];
 
-var data = [ { label: 'Sleep', value: 0.01 + sleepWatch.getTime() },
-             { label: 'Work', value: 0.01 + workWatch.getTime() },
-             { label: 'Play', value: 0.01 + playWatch.getTime() } ];
-
-change(data);
+change(getData());
 
 setInterval(function() {
-  change(incrementData());
-}, 1000);
+  change(getData());
+}, 50);
 
-// function incrementData(data, id) {
-//   return data.map(function(it) {
-//     return { label: it.label, value: it.value = it.value + ((it.label === id) ? 1 : 0)  }
-//   });
-// }
-
-function incrementData(data, id) {
-  return [
-     { label: 'Sleep', value: 0.01 + sleepWatch.getTime() },
-     { label: 'Work', value: 0.01 + workWatch.getTime() },
-     { label: 'Play', value: 0.01 + playWatch.getTime() }
-   ];
+function getData() {
+  return states.map(function (el) {
+    return { label: el.label, value: 0.01 + el.timer.getElapsed() }
+  })
 }
 
-function updateData() {
-  var newData = incrementData(data, this.id);
-  change(newData);
-  data = newData;
+function stopAll() {
+  states.forEach( function(el) { el.timer.stop(); } );
 }
 
-d3.selectAll(".buttonz")
-    .on("click", updateData);
+function startCurrent() {
+  var id = this.id;
+
+  states.forEach(function (el) {
+    if (el.label === id) {
+      el.timer.start();
+    } else {
+      el.timer.stop();
+    }
+  })
+}
+
+function resetAll() { // todo : reset everything!
+  states.forEach( function(el) { el.timer.reset(); } );
+}
+
+d3.selectAll('.statez').on('click', startCurrent);
+
+d3.selectAll('#Stop').on('click', stopAll);
+d3.selectAll('#Reset').on('click', resetAll);
 
 function change(data) {
 
@@ -179,7 +150,7 @@ function change(data) {
 		.attr("class", "slice");
 
 	slice
-		.transition().duration(1000)
+		.transition().duration(transition_delay)
 		.attrTween("d", function(d) {
 			this._current = this._current || d;
 			var interpolate = d3.interpolate(this._current, d);
@@ -208,7 +179,7 @@ function change(data) {
 		return d.startAngle + (d.endAngle - d.startAngle)/2;
 	}
 
-	text.transition().duration(1000)
+	text.transition().duration(transition_delay)
 		.attrTween("transform", function(d) {
 			this._current = this._current || d;
 			var interpolate = d3.interpolate(this._current, d);
@@ -241,7 +212,7 @@ function change(data) {
 	polyline.enter()
 		.append("polyline");
 
-	polyline.transition().duration(1000)
+	polyline.transition().duration(transition_delay)
 		.attrTween("points", function(d){
 			this._current = this._current || d;
 			var interpolate = d3.interpolate(this._current, d);
