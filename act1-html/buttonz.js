@@ -33,6 +33,7 @@ var Stopwatch = function(elem, options) {
   }
 
   function reset() {
+    stop();
     clock = 0;
   }
 
@@ -90,7 +91,7 @@ var outerArc = d3.svg.arc()
 
 svg.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-var key = function(d){ return d.data.label; };
+var key = function(d){ return d.data.label + ' ' + d.data.value.toPrecision(); };
 var transition_delay = 1; // was 1000
 
 var color = d3.scale.ordinal()
@@ -109,12 +110,8 @@ setInterval(function() {
 
 function getData() {
   return states.map(function (el) {
-    return { label: el.label, value: 0.01 + el.timer.getElapsed() }
+    return { label: el.label, value: 0.001 + el.timer.getElapsed() }
   })
-}
-
-function stopAll() {
-  states.forEach( function(el) { el.timer.stop(); } );
 }
 
 function startCurrent() {
@@ -129,12 +126,15 @@ function startCurrent() {
   })
 }
 
-function resetAll() { // todo : reset everything!
+function stopAll() {
+  states.forEach( function(el) { el.timer.stop(); } );
+}
+
+function resetAll() {
   states.forEach( function(el) { el.timer.reset(); } );
 }
 
 d3.selectAll('.statez').on('click', startCurrent);
-
 d3.selectAll('#Stop').on('click', stopAll);
 d3.selectAll('#Reset').on('click', resetAll);
 
@@ -172,7 +172,7 @@ function change(data) {
 		.append("text")
 		.attr("dy", ".35em")
 		.text(function(d) {
-			return d.data.label;
+			return d.data.label + ' ' + d.data.value;
 		});
 
 	function midAngle(d){
