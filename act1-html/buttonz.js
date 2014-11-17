@@ -56,6 +56,34 @@ var Stopwatch = function(elem, options) {
   this.getElapsed = getElapsed;
 };
 
+function fmtNoPad(d,fixed) {
+  if (d < 0) { d = 0 };
+
+  return d.toFixed(fixed);
+}
+
+function fmtPad(d,fixed) {
+  var prefix = (d < 10) ? '0' : '';
+
+  if (d < 0) { d = 0 };
+
+  return prefix + d.toFixed(fixed);
+}
+
+function fmt(d) {
+  var ret = '';
+
+  ret += fmtNoPad(d / 3600.0, 0) + ':';
+  if (d > 3600) { d -= (3600.0) * (d / 3600.0).toFixed(); };
+
+  ret += fmtPad(d / 60.0, 0) + ':';
+  if (d > 60) { d -= (60.0) * (d/60.0).toFixed(); };
+
+  ret += fmtPad(d, 1);
+
+  return ret;
+}
+
 var sleepWatch = new Stopwatch(document.getElementById('Sleep'));
 var workWatch = new Stopwatch(document.getElementById('Work'));
 var playWatch = new Stopwatch(document.getElementById('Play'));
@@ -91,8 +119,8 @@ var outerArc = d3.svg.arc()
 
 svg.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-var key = function(d){ return d.data.label + ' ' + d.data.value.toPrecision(); };
-var transition_delay = 1; // was 1000
+var key = function(d){ return d.data.label + ' ' + fmt(d.data.value); };
+var transition_delay = 0; // was 1000
 
 var color = d3.scale.ordinal()
 	.domain(["Sleep", "Work", "Play"])
@@ -172,7 +200,7 @@ function change(data) {
 		.append("text")
 		.attr("dy", ".35em")
 		.text(function(d) {
-			return d.data.label + ' ' + d.data.value;
+			return d.data.label + ' ' + fmt(d.data.value);
 		});
 
 	function midAngle(d){
