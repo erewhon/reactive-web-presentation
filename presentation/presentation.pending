@@ -16,3 +16,63 @@ From bacon FAQ:
      managers fear that their employees will never learn Scala, so
      everything has to be written in Java. Would you still like to
      write code in Cobol?
+
+# Bonus
+
+## Visualization
+
+<aside class="notes">
+Toggl.  Too complicated.  Buttons as a service.   (Baas)
+
+Toggle buttons.  Time D3.
+</aside>
+
+## Visualization - integration
+
+<aside class="notes">
+
+integrate with Google Maps for real time tracking?
+
+</aside>
+
+## Func(this)
+
+<aside class="notes">
+
+Functional voice app.  (Perhaps save the real deal for Clojure,
+ClojureScript, core.logic?)
+
+</aside>
+
+
+## F&sharp;
+
+<aside class="notes">
+
+So, just for shiggles, let's do it in F#
+
+</aside>
+
+## F&sharp;?
+
+<aside class="notes">
+
+Yes, F#.  In the browser.
+
+</aside>
+
+## How
+
+- WebSharper
+- FunScript
+
+<aside class="notes">
+
+These are both projects that take F# and compile it to Javascript.
+Yes... yes they do.
+
+</aside>
+
+ But how much of it is the magical FRP bits?  
+Let's
+try writing some functional code.

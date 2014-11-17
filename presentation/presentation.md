@@ -19,9 +19,16 @@ It's beyond rich… it's ridiculous.
 
 This presentation is in Reveal.JS.  I highly recommend it.  Good stuff...
 
+I mentioned F#.  But that didn't happen.  Sorry...  that could be a
+topic for another day...
+
 </aside>
 
-# What is (F)RP?
+# Prologue
+
+## What is (F)RP?
+
+## Reactive Programming
 
 <aside class="notes">
 
@@ -40,12 +47,6 @@ However, according to presentation at [Strangeloop][SL2014], put it under formul
 
 
 Basically, it depends on your sense of time.
-
-</aside>
-
-## Reactive Programming
-
-<aside class="notes">
 
 First, let's talk about what it is.
 
@@ -110,17 +111,13 @@ Things like can you add and remove event streams dynamically?  Synchronous vs as
 
 # Act 1 - "Old Sk00l"
 
-<aside class="notes">
-
-Act 1 : Set Up
-
-</aside>
-
 ## A Simple Model
+
+<aside class="notes">
 
 ... include a sketch here of a screen ...
 
-<aside class="notes">
+Act 1 : Set Up
 
 The canonical example for MVC frameworks is the todo app.  Let's try a
 couple of other things...
@@ -129,16 +126,20 @@ Google has something called Snippets, which they use internally for
 people to record what they've done.  Think of a combination of status
 reports, progress meetings, and a work diary.
 
-A commercial offering that attempts to produce this is [iDoneThis](https://idonethis.com/home/).
+A commercial offering that attempts to produce this is
+[iDoneThis](https://idonethis.com/home/).
 
 Let's create a simple thing.  Call it Schnippets.
 
-Basically, there is 1 main model: status report.  To keep it simple, let's just take a big block of text.  Perhaps we can treat it as markdown.  We'll call this a Schnippet.
+Basically, there is 1 main model: status report.  To keep it simple,
+let's just take a date and a big block of text.  Perhaps we can treat
+it as markdown.  We'll call this a Schnippet.
 
-There are other concepts, like a user.  Someone who logs into the system.  They have an email address so we can bug them.
-
-We can add things like following relationships.  Perhaps tags for the
-person or the schnippet.  We can get fancier later.
+There are other concepts, like a user.  Someone who logs into the
+system.  They have an email address so we can bug them.  We can add
+things like following relationships.  Perhaps tags for the person or
+the schnippet.  But to keep it simple, I'm just going to stick with
+the base model.
 
 </aside>
 
@@ -146,15 +147,16 @@ person or the schnippet.  We can get fancier later.
 
 <aside class="notes">
 
+Demo time.
+
 http://localhost:8080/act1-jquery/schnippets.html
 
 Ok, so that's boring.  It doesn't do anything.
 
 Actually, it does some simple validation thanks to HTML5.
 
-Also, it isn't very composable.
-
-Very very simple.  Honestly, almost no styling.  I could have added bootstrap.  But decided not to.
+It isn't very composable.  Very very simple.  Honestly, almost no
+styling.  I could have added bootstrap.  But decided not to.
 
 </aside>
 
@@ -180,6 +182,50 @@ $(function() {
 });
 ~~~~~~~
 
+<aside class="notes">
+
+While jQuery isn't "reactive", it isn't procedural either.  One could
+consider it a fluent interface.  It lets us map across selectors and
+do things.  So in that sense, it's functional.  Unfortunately, it
+doesn't go all the way.  So you still end up with a tangled mess of
+callbacks.
+
+As an aside: since this is a presentation about web development, I'm
+not going to get into any backend API.  So I'm going to use Firebase,
+one of the database-as-a-services out there.  (And which recently was
+bought by Google.)
+
+Ok... back to the code.  So, this isn't too bad.  What are some of the
+problems?
+
+It has callbacks.  You can start running into issues with nested callbacks
+if you have async behavior in your callbacks.  That can get messy quickly.
+
+You're dealing with two languages: HTML and Javascript.  Actually 3 if
+you include CSS.  There are HTML tags in the Javascript.  You can
+mitigate it with templates, but still not ideal.  Also, nothing is
+making sure your selectors are named the same in your code and in your
+markup.
+
+No composability.  So I'm repeating HTML over and over again.  Again,
+  templates can help with that.
+
+
+
+And some issues fundamental to Javascript:
+
+Lack of type safety.
+
+Lack of property and selector safety.  I can type the wrong property
+and it will still run... poorly.  It just won't work the way you
+want to.
+
+Now, some of these issues we don't have a good answer for.  Although
+certain IDEs are smart enough to tell you you're messing up.  (For
+example, some of the Jetbrains IDEs.)
+
+</aside>
+
 ---------
 
 ~~~~~~~~
@@ -193,63 +239,30 @@ $  diff -u act1-html/schnippets.html act1-jquery/schnippets.html
 
 <aside class="notes">
 
-While jQuery isn't "reactive", it isn't procedural either.
-
-One could consider it a fluent interface.
-
-Since this is a presentation about web development, I'm not going to
-get into any backend API.  So I'm going to use Firebase, one of the
-database-as-a-services out there.  (And which recently was bought by
-Google.)
-
-
-
-So, this isn't too bad.  What are some of the problems?
-
-- It has callbacks.  You can start running into issues with nested callbacks
-  if you have async behavior in your callbacks.  That can get messy quickly.
-- Lack of type safety.
-- Lack of property safety.  I can type the wrong property and it will still run... poorly.
-  It just won't work the way you want to.
-- You're dealing with two languages: HTML and Javascript.  Actually 3 if you include CSS.  There are HTML tags in the Javascript.
-  You can mitigate it with templates, but still not ideal.  Also, nothing is
-  making sure your selectors are named the same in your code and in your markup.
-- No composability.  So I'm repeating HTML over and over again.
-  Again, templates can help with that.
-
-Now, some of these issues we don't have a good answer for.  Although
-certain IDEs are smart enough to tell you you're messing up.  (For
-example, some of the Jetbrains IDEs.)
-
-So we compare the plain HTML and jQuery version, and there's basically no difference between the markup, except we've included some Javascript.  (I'm not going to do this kind of diff, but for the most part, this will be the story going forward.)
+So if we compare the plain HTML and jQuery version, there's basically
+no difference between the markup, except we've included some
+Javascript.  (I'm not going to do this kind of diff every time, but
+for the most part, this will be the story going forward.)
 
 </aside>
 
 # Act 2 - Reactive
 
-<aside class="notes">
-
-Act 2 : Confrontation
-
-Where we use an existing language (Javascript), and use a Reactive
-library.
-
-</aside>
-
 ## RxJS
 
-- [http://reactive-extensions.github.io/RxJS/](http://reactive-extensions.github.io/RxJS/)
 - $RxJS = Observables + LINQ + Schedulers$
+- [http://reactive-extensions.github.io/RxJS/](http://reactive-extensions.github.io/RxJS/)
 
 <aside class="notes">
 
-Can help with callback hell.
-Client and server side
+Act 2 : Confrontation: Where we use an existing language (Javascript),
+and add a Reactive library.
+
+Can help with callback hell.  Client and server side
 
 </aside>
 
-
-## Demo
+## RxJS - Demo
 
 
 ## Bacon.JS
@@ -279,16 +292,15 @@ It's very similar to RxJS.  Actually, it's inspired by RxJS.  It has 2 flavors o
 
 </aside>
 
-## Demo
-
-# Act 3 - First Class FRP
+## BaconJS - Demo
 
 <aside class="notes">
 
-Act 3 : Resolution
+So let's see what it looks like...
 
 </aside>
 
+# Act 3 - First Class FRP
 
 ## Elm
 
@@ -299,11 +311,22 @@ Act 3 : Resolution
 
 <aside class="notes">
 
+Act 3 : Resolution, where we find a (possibly) better solution using a new language.
+
 Very similar to Haskell.  But also borrows some syntax from F#.
 
 FRP.
 How swapping!  In the browser!
 Time traveling debugger!  Reactor!
+
+It's still a relatively young language.  It's not Javascript, which is
+a feature in my mind.  When I started with it, it was kind of painful,
+as it was a lot more literal.  Compilation errors kept stopping me.
+Then I embraced it, and it was quite nice.
+
+It has a stronger front end story right now.  The Elm REPL runs on
+Node, so it might eventually get a stronger backend story.
+
 </aside>
 
 ## Hello World
@@ -344,9 +367,9 @@ main = asText "Hello world"
 
 ## Demo - Schnippets
 
-    $ cd act3-elm && elm-reactor
-    Elm Reactor 0.1, backed by version 0.13 of the compiler.
-    Listening on http://localhost:8000/
+        $ cd act3-elm && elm-reactor
+        Elm Reactor 0.1, backed by version 0.13 of the compiler.
+        Listening on http://localhost:8000/
 
 <aside class="notes">
 
@@ -358,6 +381,11 @@ Then, let's look at Schnippets.
 
 </aside>
 
+## Demo - Buttonz
+
+<aside class="notes">
+</aside>
+
 # Epilogue
 
 ## Functional?  Reactive?
@@ -365,86 +393,22 @@ Then, let's look at Schnippets.
 <aside class="notes">
 
 So, Elm is a decent amount of code on the surface.  But over half of
-it is the HTML.  But how much of it is the magical FRP bits?  Let's
-try writing some functional code.
+it is the HTML.
 
-</aside>
+I think it's a promising AltJS language.  Native functional reactive
+programming is great.  When there are native bindings to existing
+libraries, it's pretty great.
 
-## F&sharp;
-
-<aside class="notes">
-
-So, just for shiggles, let's do it in F#
-
-</aside>
-
-## F&sharp;?
-
-<aside class="notes">
-
-Yes, F#.  In the browser.
-
-</aside>
-
-## How
-
-- WebSharper
-- FunScript
-
-<aside class="notes">
-
-These are both projects that take F# and compile it to Javascript.
-Yes... yes they do.
-
-</aside>
-
-# Bonus
-
-## Visualization
-
-<aside class="notes">
-Toggl.  Too complicated.  Buttons as a service.   (Baas)
-
-Toggle buttons.  Time D3.
-</aside>
-
-## Visualization - integration
-
-<aside class="notes">
-
-integrate with Google Maps for real time tracking?
-
-</aside>
-
-## Func(this)
-
-<aside class="notes">
-
-Functional voice app.  (Perhaps save the real deal for Clojure,
-ClojureScript, core.logic?)
+For certain domains (dare I say: game development), it's quite
+powerful.
 
 </aside>
 
 # Fin
 
+## 
+
 ![](images/1654069.jpg)
-
-## About
-
-erewhon<br/>
-[flatland](http://flatland.biz/) /
-[.tx]()
-
-
-<aside class="notes">
-
-Also Facebook, Flickr, Twitter...
-
-[facebook](http://) /
-[twitter]() /
-
-</aside>
-
 
 ## Further Reading
 
@@ -477,9 +441,7 @@ RxJS:
 - [Time Flies like an Arrow](http://jsfiddle.net/mattpodwysocki/9EjSQ/)
 
 BaconJS:
--
 - [Making a snake game in BaconJS](http://philipnilsson.github.io/badness/)
-
 
 Elm:
 - [Site](http://elm-lang.org/)
@@ -489,7 +451,6 @@ Elm:
 Pong? Tetris?  Snake?
 
 Other interesting projects:
-
 - [Radioactive](https://www.npmjs.org/package/radioactive)
 
 
@@ -498,3 +459,22 @@ Other interesting projects:
 > http://pchiusano.github.io/2014-07-02/css-is-unnecessary.html
 > https://gist.github.com/evancz/2b2ba366cae1887fe621
 > https://github.com/evancz/elm-todomvc
+
+
+## Thank You
+
+erewhon @ { [flatland](http://flatland.biz/) | [github](https://github.com/erewhon) | [.tx]() }
+
+<aside class="notes">
+
+Also Facebook, Flickr, Twitter...
+
+[facebook](http://facebook.com/erehon) /
+[twitter]() /
+
+This presentation is on github.
+
+</aside>
+
+
+
