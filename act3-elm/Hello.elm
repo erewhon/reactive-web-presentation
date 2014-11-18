@@ -7,6 +7,7 @@ main = [markdown|
 Hello world!  Does it really reload on save?  Nifty!
 
 - Write presentation
+- Do presentation
 - ...
 - profit!
 

@@ -14,6 +14,9 @@ setTimeout(function() {
       dependencies: [
           { src: '//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.10/socket.io.min.js', async: true },
           { src: 'plugin/multiplex/master.js', async: true },
+          { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+          // Remote control your reveal.js presentation using a touch device
+          { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } },
     ]});
 
  }, 1000);

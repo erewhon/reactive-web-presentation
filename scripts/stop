@@ -1,5 +1,6 @@
 #!/bin/bash
 #
-# shut down presentation
-
+# shut down presentation servers
+#
 killall elm-reactor-unwrapped
+killall node

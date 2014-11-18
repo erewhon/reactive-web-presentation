@@ -1,15 +1,24 @@
-#!/bin/bash
+#!/bin/bash -x
 #
 # Start up presentation.  Can develop it in this mode as well!  Nifty!
 #
+# We will start an Elm Reactor on port 8000 plus a node-based HTTP server on 8080 Just In Case.
+#
+sleep 1 && (http-server -p 8080 &)
+sleep 1 && (elm-reactor -p 8000 &)
 
-#
-# Open the presentation!
-#
-open presentation/presentation.html
+BASE="http://localhost:8000"
+
+sleep 3
+
+for url in presentation/presentation.html act*/index.html act3-elm
+do
+  open "$BASE/$url"
+  sleep 1
+done
 
 #
 # Elm build environment
 #
-(cd act3-elm && elm-reactor &)
-sleep 1 && open http://localhost:8000/
+# (cd act3-elm && elm-reactor &)
+# sleep 1 && open http://localhost:8000/

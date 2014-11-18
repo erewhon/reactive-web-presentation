@@ -2,6 +2,15 @@
 % Steven Byrnes
 % November 19, 2014
 
+## notes
+
+questions I haven't answered yet:
+- RxJS: schedulers?
+- BaconJS - flavors?  Behaviors vs ?
+
+vertically allign
+
+
 ## Abstract
 
 > We will look at a few language and library options for doing
@@ -102,6 +111,7 @@ Things like can you add and remove event streams dynamically?  Synchronous vs as
 ## Why?
 
 - Declarative rather than imperative
+- Easier to reason about
 - Easier to follow flow
 - Composability
 - Functional or fluent interfaces
@@ -114,8 +124,6 @@ Things like can you add and remove event streams dynamically?  Synchronous vs as
 ## A Simple Model
 
 <aside class="notes">
-
-... include a sketch here of a screen ...
 
 Act 1 : Set Up
 
@@ -315,9 +323,7 @@ Act 3 : Resolution, where we find a (possibly) better solution using a new langu
 
 Very similar to Haskell.  But also borrows some syntax from F#.
 
-FRP.
-How swapping!  In the browser!
-Time traveling debugger!  Reactor!
+Time traveling debugger is called Reactor.
 
 It's still a relatively young language.  It's not Javascript, which is
 a feature in my mind.  When I started with it, it was kind of painful,
@@ -377,7 +383,9 @@ Let's look at this in the Elm reactor.
 
 First, let's look at a simple Elm program with embedded markdown.
 
-Then, let's look at Schnippets.
+Then, let's look at Schnippets.  Enter a few schnippets.  See events
+count increasing.  You can scrub back and forth.  Now, let's change
+the code.  Change text for date.  (Or change it back.)
 
 </aside>
 
@@ -393,7 +401,7 @@ Then, let's look at Schnippets.
 <aside class="notes">
 
 So, Elm is a decent amount of code on the surface.  But over half of
-it is the HTML.
+it is the HTML and CSS.
 
 I think it's a promising AltJS language.  Native functional reactive
 programming is great.  When there are native bindings to existing
@@ -410,56 +418,51 @@ powerful.
 
 ![](images/1654069.jpg)
 
-## Further Reading
 
-Other AltJs: Roy, Haste, Fay, Elm, GHCJS, PureScript.
+## Other AltJS
+
+If you like Haskell-like syntax for web development, there are several
+other functional AltJs languages out there: Roy, Haste, Fay, Elm,
+GHCJS, PureScript.
 
 <aside>
 http://purescript.readthedocs.org/en/latest/intro.html#related-projects
 </aside>
 
-## References
+## Further Reading
 
 [SL2014]: https://www.youtube.com/watch?v=Agu6jipKfYw "Controlling Time And Space: understanding the many formulations of FRP"
 [ReMan]: http://www.reactivemanifesto.org/
 [Hipster]:http://www.infoq.com/presentations/game-functional-reactive-programming
 [Missing]:https://gist.github.com/staltz/868e7e9bc2a7b8c1f754
 [Learn]:http://reactive-extensions.github.io/learnrx/
-https://www.youtube.com/watch?v=FAZJsxcykPs&list=PLfXiENmg6yyU5kEHyo1kYkq7HEzBOoiTT
+[Netflix]:https://www.youtube.com/watch?v=FAZJsxcykPs&list=PLfXiENmg6yyU5kEHyo1kYkq7HEzBOoiTT
 
-Good presentations:
-- SL2014
-- Missing
-- Hipster
-- Learn
+Presentations and intros:
+- [Controlling Time and Space: Understanding the Many Formulations of FRP][SL2014]
+- [The introduction to Reactive Programming you've been missing][Missing]
+- [Functional Programming in Javascript][Learn]
+- [Netflix JavaScript Talks - Async JavaScript with Reactive Extensions][Netflix]
+- [What Every Hipster Should Know About Functional Reactive Programming][Hipster]
 
 RxJS:
-- [Site](https://github.com/Reactive-Extensions/RxJS)
-- [Main Site](http://reactive-extensions.github.io/RxJS/)
+- [Home](http://reactive-extensions.github.io/RxJS/)
 - [Examples](https://github.com/Reactive-Extensions/RxJS/tree/master/examples)
 - [Firebase binding](https://gist.github.com/gsoltis/ee20138502a4764650f2)
 - [Time Flies like an Arrow](http://jsfiddle.net/mattpodwysocki/9EjSQ/)
 
 BaconJS:
+- [Home](http://baconjs.github.io/)
 - [Making a snake game in BaconJS](http://philipnilsson.github.io/badness/)
 
 Elm:
-- [Site](http://elm-lang.org/)
+- [Home](http://elm-lang.org/)
+- [Todo](https://github.com/evancz/elm-todomvc)
 - [Elmtris](https://github.com/jcollard/elmtris)
 - [Pong](http://elm-lang.org/edit/examples/Intermediate/Pong.elm)
 
-Pong? Tetris?  Snake?
-
 Other interesting projects:
 - [Radioactive](https://www.npmjs.org/package/radioactive)
-
-
-
-
-> http://pchiusano.github.io/2014-07-02/css-is-unnecessary.html
-> https://gist.github.com/evancz/2b2ba366cae1887fe621
-> https://github.com/evancz/elm-todomvc
-
 
 ## Thank You
 

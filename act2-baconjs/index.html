@@ -1,57 +1,27 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <link rel="stylesheet" href="../schnippets.css">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/bacon.js/0.7.33/Bacon.min.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
-
-    <script id="schnippet-list-template" type="text/x-handlebars-template">
-        <dl id="schnippet-list">
-            {{#each schnippets}}
-            <dt class="schnippet-date">
-                {{dte}}
-            </dt>
-            <dd class="schnippet-value">
-                {{schnippet}}
-            </dd>
-            {{/each}}
-        </dl>
-    </script>
-    <script type="text/javascript" src="application.js"></script>
   </head>
 
   <body>
-    <h1>Schnippets</h1>
+    <h1>Welcome</h1>
+    <h2>Act 2 - Bacon.JS</h2>
 
-    <div>
-      <form id='schnippet-form'>
-        <p>Enter a schnippet:</p>
-
-        <input id="new-date" required="required" type="date" placeholder="Enter date">
-
-        <br/>
-
-        <textarea id="new-schnippet" class="toppad" placeholder="What did you do today?"
-                  required="required" autofocus=true></textarea>
-
-        <br/>
-
-        <input id="save-schnippet" type="submit" class="toppad" value="Save">
+    <!-- p>Sign in:
+      <form>
+        <label>User:</label><br>
+        <input name="user" type="text"><br>
+        <label>Password:</label><br>
+        <input name="password" type="password"><br><br>
+        <input type="submit" name="Submit">
       </form>
-    </div>
+    </p -->
 
-    <div class="toppad">
-      Previous schnippets:
-      <section id="main">
-      </section>
-
-      <dl id="schnippet-list">
-      </dl>
-    </div>
-
-    <footer id="info">
-      <p>Written by <a href="https://erewhon.flatland.org/">Steven Byrnes</a>.</p>
-    </footer>
+    <p>
+        <!-- li><a href="users.html">Users</a -->
+        <a href="schnippets.html">Schnippets</a><br>
+        <a href="buttonz.html">Buttons</a>
+    </p>
   </body>
 </html>
