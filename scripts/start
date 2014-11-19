@@ -11,14 +11,8 @@ BASE="http://localhost:8000"
 
 sleep 3
 
-for url in presentation/presentation.html act*/index.html act3-elm
+for url in presentation/presentation.html {act1-html,act1-jquery,act2-rxjs,act2-baconjs}/index.html act3-elm
 do
   open "$BASE/$url"
   sleep 1
 done
-
-#
-# Elm build environment
-#
-# (cd act3-elm && elm-reactor &)
-# sleep 1 && open http://localhost:8000/

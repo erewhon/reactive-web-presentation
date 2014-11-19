@@ -8,7 +8,7 @@
 
 pandoc -o presentation.html \
   -t revealjs               \
-  -V theme=default          \
+  -V theme=solarized          \
   --incremental             \
   --mathjax                 \
   --smart                   \

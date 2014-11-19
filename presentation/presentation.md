@@ -5,10 +5,25 @@
 ## notes
 
 questions I haven't answered yet:
-- RxJS: schedulers?
 - BaconJS - flavors?  Behaviors vs ?
 
-vertically allign
+what about good examples for reactive?  um... games?
+
+http://stackoverflow.com/questions/6884022/collapsing-a-group-of-commits-into-one-on-git
+
+http://pchiusano.github.io/2014-07-02/css-is-unnecessary.html
+
+every third word
+
+(have that diagram on reactive?  which diagram?)
+
+
+Vanilla Javascript: 928 lines.
+jQuery: 211 lines, 60 lines HTML (including templates)
+BaconJS: 531 lines
+RxJS: 731 lines!?
+Elm: 322 lines
+
 
 
 ## Abstract
@@ -52,10 +67,11 @@ a spreadsheet.  You update a cell, and if that cell is referenced
 elsewhere, they are automatically recomputed.
 
 RxJava started calling themself FRP, but changed it to just RP.
-However, according to presentation at [Strangeloop][SL2014], put it under formulation of FRP.
+However, according to this [presentation][SL2014] at Strangeloop, put
+it under formulation of FRP.
 
 
-Basically, it depends on your sense of time.
+Basically, it depends on your constraints.
 
 First, let's talk about what it is.
 
@@ -98,6 +114,9 @@ There is also a hybrid type, push-pull.  For example, some pull-based streams co
 
 </aside>
 
+
+## Dynamic vs static graphs
+
 ## Different constraints
 
 <aside class="notes">
@@ -112,9 +131,7 @@ Things like can you add and remove event streams dynamically?  Synchronous vs as
 
 - Declarative rather than imperative
 - Easier to reason about
-- Easier to follow flow
 - Composability
-- Functional or fluent interfaces
 
 <aside class="notes">
 </aside>
@@ -170,7 +187,7 @@ styling.  I could have added bootstrap.  But decided not to.
 
 ## jQuery
 
-~~~~~~~ {.javascript .numberLines}
+~~~~~~~ {.javascript}
 $("button#specialness")
   .html("Don't click here!")
   .on( "click", somethingMagickal );
@@ -180,14 +197,11 @@ $("button#specialness")
 
 For example:
 
-~~~~~~~ {.javascript .numberLines}
-$(function() {
-
+~~~~~~~ {.javascript}
     $("#save-schnippet").on("click", function(event) {
         event.preventDefault();
         alert('you entered: ' + $("#new-schnippet").val());
     });
-});
 ~~~~~~~
 
 <aside class="notes">
@@ -266,12 +280,76 @@ for the most part, this will be the story going forward.)
 Act 2 : Confrontation: Where we use an existing language (Javascript),
 and add a Reactive library.
 
-Can help with callback hell.  Client and server side
+Can help with callback hell.  Client and server side.  Same as
+Reactive extensions you can get for .NET, Java, etc.
+
+> The Reactive Extensions (Rx) is a library for composing asynchronous
+> and event-based programs using observable sequences and LINQ-style
+> query operators.
+
+What is an Observable?  On one end, you have the iterable pattern,
+which is pull-based.  On the other end, you have the observer pattern,
+which is push based.  The Observable in Rx is like the Observer
+pattern.  It defines a subscriber that is called on each message, on
+error, and when complete.
+
+
+LINQ?  In the sense of the querying.  Not the language extensions you
+get in C#.
+
+What is a scheduler?  Adds concurrency.  (Although typically there are
+limited opportunities to do that in browser.)
+
+
+
+RxJS lets you wrap many things in an Observable.  You can wrap events
+(native, jQuery, Angular, etc).  Anything that returns a Promises A+
+promise. For example, from a jQuery AJAX call.
+
+For example, autocomplete becomes pretty simple.
+
 
 </aside>
 
-## RxJS - Demo
+## Example
 
+~~~~~~~ {.javascript .numberLines}
+function searchWikipedia (term) {
+   return $.ajax({
+     url: 'http://en.wikipedia.org/w/api.php',
+     dataType: 'jsonp',
+     data: {
+       action: 'opensearch',
+       format: 'json',
+       search: global.encodeURI(term)
+     }
+   }).promise();
+}
+
+var keyup = Rx.Observable.fromEvent($('#textInput'), 'keyup')
+      .map((e) => e.target.value)        // Project the text from input
+      .filter((text) => text.length > 2) // Text is longer than 2 chars
+      .throttle(750)                     // Pause for 750ms
+      .distinctUntilChanged();           // Only if the value changed
+
+var searcher = keyup.flatMapLatest(searchWikipedia);
+
+var subscription = searcher.subscribe( (data) => console.log(data) );
+~~~~~~~ 
+
+<aside class="notes">
+
+This is adapted from one of the RxJS examples.  It's using ECMAScript
+6 syntax.  I think.  :-)
+
+So you can see a few different things going on here.  We create an
+observable from keyup events on a control.  We extract the text,
+filter it, debounce (using the throttle), and filter out duplicates.
+(For example, you're using arrow keys; don't want that to trigger new
+queries.)  We then flatMapLatest on a wikipedia search.  And finally,
+we subscribe and print the data that is returned.
+
+</aside>
 
 ## Bacon.JS
 
@@ -437,6 +515,7 @@ http://purescript.readthedocs.org/en/latest/intro.html#related-projects
 [Missing]:https://gist.github.com/staltz/868e7e9bc2a7b8c1f754
 [Learn]:http://reactive-extensions.github.io/learnrx/
 [Netflix]:https://www.youtube.com/watch?v=FAZJsxcykPs&list=PLfXiENmg6yyU5kEHyo1kYkq7HEzBOoiTT
+[Manifest]:http://www.reactivemanifesto.org/
 
 Presentations and intros:
 - [Controlling Time and Space: Understanding the Many Formulations of FRP][SL2014]
@@ -444,6 +523,7 @@ Presentations and intros:
 - [Functional Programming in Javascript][Learn]
 - [Netflix JavaScript Talks - Async JavaScript with Reactive Extensions][Netflix]
 - [What Every Hipster Should Know About Functional Reactive Programming][Hipster]
+- [Reactive Manifesto][Manifesto]
 
 RxJS:
 - [Home](http://reactive-extensions.github.io/RxJS/)
@@ -460,6 +540,8 @@ Elm:
 - [Todo](https://github.com/evancz/elm-todomvc)
 - [Elmtris](https://github.com/jcollard/elmtris)
 - [Pong](http://elm-lang.org/edit/examples/Intermediate/Pong.elm)
+- [On how to structure an Elm application](https://gist.github.com/evancz/2b2ba366cae1887fe621)
+- [Elm: Concurrent FRP for Functional GUIs](http://elm-lang.org/papers/concurrent-frp.pdf)
 
 Other interesting projects:
 - [Radioactive](https://www.npmjs.org/package/radioactive)
