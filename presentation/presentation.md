@@ -2,29 +2,6 @@
 % Steven Byrnes
 % November 19, 2014
 
-## notes
-
-questions I haven't answered yet:
-- BaconJS - flavors?  Behaviors vs ?
-
-what about good examples for reactive?  um... games?
-
-http://stackoverflow.com/questions/6884022/collapsing-a-group-of-commits-into-one-on-git
-
-http://pchiusano.github.io/2014-07-02/css-is-unnecessary.html
-
-every third word
-
-(have that diagram on reactive?  which diagram?)
-
-
-Vanilla Javascript: 928 lines.
-jQuery: 211 lines, 60 lines HTML (including templates)
-BaconJS: 531 lines
-RxJS: 731 lines!?
-Elm: 322 lines
-
-
 
 ## Abstract
 
@@ -115,15 +92,12 @@ There is also a hybrid type, push-pull.  For example, some pull-based streams co
 </aside>
 
 
-## Dynamic vs static graphs
-
 ## Different constraints
 
 <aside class="notes">
 
-From presentation.
-
-Things like can you add and remove event streams dynamically?  Synchronous vs asynchronous.  Infinite signals.
+Dynamic vs static graphs.  Things like can you add and remove event
+streams dynamically?  Synchronous vs asynchronous.  Infinite signals.
 
 </aside>
 
@@ -378,33 +352,23 @@ It's very similar to RxJS.  Actually, it's inspired by RxJS.  It has 2 flavors o
 
 </aside>
 
-## Example
+## Differences
+
+RxJS:
+
+~~~~~~~ {.javascript}
+var keyup = Rx.Observable.fromEvent($('#textInput'), 'keyup')
+~~~~~~~
+
+BaconJS:
+
+~~~~~~~ {.javascript}
+var keyup = $('#textInput').asEventStream('keyup')
+~~~~~~~
 
 <aside class="notes">
 
-xxx : finish!?
-
-function searchWikipedia (term) {
-   return $.ajax({
-     url: 'http://en.wikipedia.org/w/api.php',
-     dataType: 'jsonp',
-     data: {
-       action: 'opensearch',
-       format: 'json',
-       search: global.encodeURI(term)
-     }
-   }).promise();
-}
-
-var keyup = $('#textInput').asEventStream('keyup')
-      .map((e) => e.target.value)        // Project the text from input
-      .filter((text) => text.length > 2) // Text is longer than 2 chars
-      .throttle(750)                     // Pause for 750ms
-      .distinctUntilChanged();           // Only if the value changed
-
-var searcher = keyup.flatMapLatest(searchWikipedia);
-
-var subscription = searcher.subscribe( (data) => console.log(data) );
+Some differences.
 
 </aside>
 

@@ -80,3 +80,32 @@ try writing some functional code.
 
 > http://pchiusano.github.io/2014-07-02/css-is-unnecessary.html
 > https://gist.github.com/evancz/2b2ba366cae1887fe621
+
+
+## Dynamic vs static graphs
+
+
+## notes
+
+
+questions I haven't answered yet:
+- BaconJS - flavors?  Behaviors vs ?
+
+what about good examples for reactive?  um... games?
+
+http://stackoverflow.com/questions/6884022/collapsing-a-group-of-commits-into-one-on-git
+
+http://pchiusano.github.io/2014-07-02/css-is-unnecessary.html
+
+every third word
+
+(have that diagram on reactive?  which diagram?)
+
+
+Vanilla Javascript: 928 lines.
+jQuery: 211 lines, 60 lines HTML (including templates)
+BaconJS: 531 lines
+RxJS: 731 lines!?
+Elm: 322 lines
+
+
