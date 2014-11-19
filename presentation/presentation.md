@@ -378,6 +378,37 @@ It's very similar to RxJS.  Actually, it's inspired by RxJS.  It has 2 flavors o
 
 </aside>
 
+## Example
+
+<aside class="notes">
+
+xxx : finish!?
+
+function searchWikipedia (term) {
+   return $.ajax({
+     url: 'http://en.wikipedia.org/w/api.php',
+     dataType: 'jsonp',
+     data: {
+       action: 'opensearch',
+       format: 'json',
+       search: global.encodeURI(term)
+     }
+   }).promise();
+}
+
+var keyup = $('#textInput').asEventStream('keyup')
+      .map((e) => e.target.value)        // Project the text from input
+      .filter((text) => text.length > 2) // Text is longer than 2 chars
+      .throttle(750)                     // Pause for 750ms
+      .distinctUntilChanged();           // Only if the value changed
+
+var searcher = keyup.flatMapLatest(searchWikipedia);
+
+var subscription = searcher.subscribe( (data) => console.log(data) );
+
+</aside>
+
+
 ## BaconJS - Demo
 
 <aside class="notes">
@@ -424,7 +455,11 @@ main = asText "Hello world"
 ## Getting started
 
 - elm_dependencies.json
+- elm-get install
+- elm --make --only-js Schnippets.elm
+- elm-reactor
 
+<aside class="notes">
 ~~~~ {.javascript .numberLines}
 {
     "version": "0.5",
@@ -440,11 +475,6 @@ main = asText "Hello world"
 }
 ~~~~
 
-- elm-get install
-- elm --make --only-js Schnippets.elm
-- elm-reactor
-
-<aside class="notes">
 - https://github.com/elm-lang/elm-platform
 - https://github.com/michaelbjames/elm-examples
 </aside>
@@ -465,11 +495,10 @@ Then, let's look at Schnippets.  Enter a few schnippets.  See events
 count increasing.  You can scrub back and forth.  Now, let's change
 the code.  Change text for date.  (Or change it back.)
 
-</aside>
 
-## Demo - Buttonz
 
-<aside class="notes">
+xxx : Buttonz?
+
 </aside>
 
 # Epilogue
@@ -515,7 +544,7 @@ http://purescript.readthedocs.org/en/latest/intro.html#related-projects
 [Missing]:https://gist.github.com/staltz/868e7e9bc2a7b8c1f754
 [Learn]:http://reactive-extensions.github.io/learnrx/
 [Netflix]:https://www.youtube.com/watch?v=FAZJsxcykPs&list=PLfXiENmg6yyU5kEHyo1kYkq7HEzBOoiTT
-[Manifest]:http://www.reactivemanifesto.org/
+[Manifesto]:http://www.reactivemanifesto.org/
 
 Presentations and intros:
 - [Controlling Time and Space: Understanding the Many Formulations of FRP][SL2014]
