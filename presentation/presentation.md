@@ -2,7 +2,6 @@
 % Steven Byrnes
 % November 19, 2014
 
-
 ## Abstract
 
 > We will look at a few language and library options for doing
