@@ -35,63 +35,64 @@
 Houston Functional Programming Meetup.</p>
 
 <h1>
+<a id="references" class="anchor" href="#references" aria-hidden="true"><span class="octicon octicon-link"></span></a>References</h1>
+
+<p><a href="presentation/presentation.html#/further-reading">Further Reading</a></p>
+
+<h1>
 <a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting Started</h1>
 
-<p>To download</p>
+<p>To clone:</p>
 
-<pre><code>    git clone ....
-</code></pre>
-
-<p>To build the presentation and examples</p>
-
-<pre><code>    mk
-    pandoc -o README.html README.md
+<pre><code>    git clone https://github.com/erewhon/reactive-web-presentation.git
 </code></pre>
 
 <h1>
 <a id="artifacts-and-building" class="anchor" href="#artifacts-and-building" aria-hidden="true"><span class="octicon octicon-link"></span></a>Artifacts and building</h1>
 
-<ul>
-<li><a href="/presentation/presentation.html">Presentation</a></li>
-</ul>
+<p>To rebuild the presentation using Pandoc:</p>
+
+<pre><code>    cd presentation &amp;&amp; ./mk
+</code></pre>
+
+<p><a href="presentation/presentation.html">Presentation</a></p>
 
 <h2>
 <a id="act-1" class="anchor" href="#act-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Act 1</h2>
 
-<p><a href="/act1-html/index.html">Plain HTML</a></p>
+<p><a href="act1-html/">Plain HTML</a></p>
 
-<p><a href="/act1-jquery/index.html">jQuery</a></p>
+<p><a href="act1-jquery/">jQuery</a></p>
 
 <h2>
 <a id="act-2" class="anchor" href="#act-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Act 2</h2>
 
-<p><a href="/act2-rxjs/index.html">RxJS</a>:</p>
-
-<p><a href="/act2-baconjs/index.html">BaconJS</a>:</p>
+<p>To fetch BaconJS dependencies:</p>
 
 <pre><code>    cd act2-baconjs &amp;&amp; bower install bacon
 </code></pre>
 
+<p><a href="act2-baconjs/">BaconJS</a>:</p>
+
+<p><a href="act2-rxjs/">RxJS</a>:</p>
+
 <h2>
 <a id="act-3" class="anchor" href="#act-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Act 3</h2>
 
-<p><a href="http://localhost:8000/">Elm in Reactor</a></p>
+<p>If you have Elm installed, run the following to start the Reactor:</p>
 
-<pre><code>    cd act3-elm &amp;&amp; elm-reactor
+<pre><code>    cd act3-elm
+    elm-get install
+    elm --make --only-js Schnippets.elm
+    elm-reactor
 </code></pre>
+
+<p>Then open <a href="http://localhost:8000/">the reactor</a>.</p>
 
 <h2>
 <a id="presentation" class="anchor" href="#presentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Presentation</h2>
 
-<p>Preparing the browser:</p>
-
-<pre><code>    ./scripts/start
-</code></pre>
-
-<p>Shut it down:</p>
-
-<pre><code>    ./scripts/stop
-</code></pre>
+<p>The "./scripts/start" will open all of the examples through the reactor, plus the presentation.</p>
 
 <h1>
 <a id="notes" class="anchor" href="#notes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Notes</h1>
@@ -102,44 +103,6 @@ same semantics.  Since the Elm code builds HTML in the code itself, in
 the Javascript-based examples, I'm doing everything in Javascript.
 That includes using Javascript templates.  (Handlebars is my weapon of
 choice.)</p>
-
-<h1>
-<a id="actions" class="anchor" href="#actions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Actions</h1>
-
-<h2>
-<a id="presentation-1" class="anchor" href="#presentation-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Presentation</h2>
-
-<p>Make it:</p>
-
-<pre><code>cd presentation &amp;&amp; ./mk
-</code></pre>
-
-<p>View presentation in <a href="presentation/presentation.html">HTML</a> or
-<a href="presentation/presentation.pdf">PDF</a>.</p>
-
-<p>todo : auto rebuild using Gulp?</p>
-
-<pre><code>&lt;script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"/&gt;
-</code></pre>
-
-<p>Things to research:</p>
-
-<ul>
-<li>how to include a file in the presentation?  (including html or similar)</li>
-<li>add a markdown library so we can render it?</li>
-</ul>
-
-<p>Firebase:</p>
-
-<ul>
-<li>email and password</li>
-<li>facebook</li>
-<li>twitter</li>
-<li>github</li>
-<li>google</li>
-</ul>
-
-<p><a href="https://www.userapp.io/">https://www.userapp.io/</a> ?</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/erewhon">erewhon</a></p>
