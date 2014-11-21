@@ -1,17 +1,152 @@
+<!doctype html>
 <html>
-  <body>
-    <p>
-      <a href="presentation/presentation.html">Presentation</a><br>
-      <a href="presentation/presentation.html#/further-reading">Further Reading</a><br>
-      <a href="act1-html/">Act 1 - HTML Schnippets</a><br>
-      <a href="act1-jquery/">Act 1 - jQuery Schnippets</a><br>
-      <a href="act2-rxjs/">Act 2 - RxJS</a><br>
-      <a href="act2-baconjs/">Act 2 - BaconJS</a><br>
-      <a href="act3-elm/">Act 3 - Elm</a><br>
-    </p>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Reactive-web-presentation by erewhon</title>
 
-    <p>Note: Elm example is best viewed in Elm Reactor.  See master
-    branch for scripts and presentation for commands to initialize
-    directory</p>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Reactive-web-presentation</h1>
+        <p>(Functional) Reactive Web Development presentation</p>
+
+        <p class="view"><a href="https://github.com/erewhon/reactive-web-presentation">View the Project on GitHub <small>erewhon/reactive-web-presentation</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/erewhon/reactive-web-presentation/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/erewhon/reactive-web-presentation/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/erewhon/reactive-web-presentation">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="functional-reactive-web-development" class="anchor" href="#functional-reactive-web-development" aria-hidden="true"><span class="octicon octicon-link"></span></a>(Functional) Reactive Web Development</h1>
+
+<p>This contains everything from my November 2014 presentation for the
+Houston Functional Programming Meetup.</p>
+
+<h1>
+<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting Started</h1>
+
+<p>To download</p>
+
+<pre><code>    git clone ....
+</code></pre>
+
+<p>To build the presentation and examples</p>
+
+<pre><code>    mk
+    pandoc -o README.html README.md
+</code></pre>
+
+<h1>
+<a id="artifacts-and-building" class="anchor" href="#artifacts-and-building" aria-hidden="true"><span class="octicon octicon-link"></span></a>Artifacts and building</h1>
+
+<ul>
+<li><a href="/presentation/presentation.html">Presentation</a></li>
+</ul>
+
+<h2>
+<a id="act-1" class="anchor" href="#act-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Act 1</h2>
+
+<p><a href="/act1-html/index.html">Plain HTML</a></p>
+
+<p><a href="/act1-jquery/index.html">jQuery</a></p>
+
+<h2>
+<a id="act-2" class="anchor" href="#act-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Act 2</h2>
+
+<p><a href="/act2-rxjs/index.html">RxJS</a>:</p>
+
+<p><a href="/act2-baconjs/index.html">BaconJS</a>:</p>
+
+<pre><code>    cd act2-baconjs &amp;&amp; bower install bacon
+</code></pre>
+
+<h2>
+<a id="act-3" class="anchor" href="#act-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Act 3</h2>
+
+<p><a href="http://localhost:8000/">Elm in Reactor</a></p>
+
+<pre><code>    cd act3-elm &amp;&amp; elm-reactor
+</code></pre>
+
+<h2>
+<a id="presentation" class="anchor" href="#presentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Presentation</h2>
+
+<p>Preparing the browser:</p>
+
+<pre><code>    ./scripts/start
+</code></pre>
+
+<p>Shut it down:</p>
+
+<pre><code>    ./scripts/stop
+</code></pre>
+
+<h1>
+<a id="notes" class="anchor" href="#notes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Notes</h1>
+
+<p>To keep things somewhat of an apples-to-apples comparison, we try to
+minimize external dependencies.  But we're also trying to keep the
+same semantics.  Since the Elm code builds HTML in the code itself, in
+the Javascript-based examples, I'm doing everything in Javascript.
+That includes using Javascript templates.  (Handlebars is my weapon of
+choice.)</p>
+
+<h1>
+<a id="actions" class="anchor" href="#actions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Actions</h1>
+
+<h2>
+<a id="presentation-1" class="anchor" href="#presentation-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Presentation</h2>
+
+<p>Make it:</p>
+
+<pre><code>cd presentation &amp;&amp; ./mk
+</code></pre>
+
+<p>View presentation in <a href="presentation/presentation.html">HTML</a> or
+<a href="presentation/presentation.pdf">PDF</a>.</p>
+
+<p>todo : auto rebuild using Gulp?</p>
+
+<pre><code>&lt;script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"/&gt;
+</code></pre>
+
+<p>Things to research:</p>
+
+<ul>
+<li>how to include a file in the presentation?  (including html or similar)</li>
+<li>add a markdown library so we can render it?</li>
+</ul>
+
+<p>Firebase:</p>
+
+<ul>
+<li>email and password</li>
+<li>facebook</li>
+<li>twitter</li>
+<li>github</li>
+<li>google</li>
+</ul>
+
+<p><a href="https://www.userapp.io/">https://www.userapp.io/</a> ?</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/erewhon">erewhon</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
   </body>
 </html>
