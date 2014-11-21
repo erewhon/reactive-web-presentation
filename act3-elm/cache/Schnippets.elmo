@@ -1,0 +1,308 @@
+Elm.Schnippets = Elm.Schnippets || {};
+Elm.Schnippets.make = function (_elm) {
+   "use strict";
+   _elm.Schnippets = _elm.Schnippets || {};
+   if (_elm.Schnippets.values)
+   return _elm.Schnippets.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   _A = _N.Array.make(_elm),
+   _E = _N.Error.make(_elm),
+   $moduleName = "Schnippets",
+   $Basics = Elm.Basics.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $Graphics$Element = Elm.Graphics.Element.make(_elm),
+   $Graphics$Input = Elm.Graphics.Input.make(_elm),
+   $Html = Elm.Html.make(_elm),
+   $Html$Attributes = Elm.Html.Attributes.make(_elm),
+   $Html$Events = Elm.Html.Events.make(_elm),
+   $Html$Optimize$RefEq = Elm.Html.Optimize.RefEq.make(_elm),
+   $Html$Tags = Elm.Html.Tags.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $String = Elm.String.make(_elm),
+   $Window = Elm.Window.make(_elm);
+   var infoFooter = A2($Html$Tags.footer,
+   _L.fromArray([$Html$Attributes.id("info")]),
+   _L.fromArray([A2($Html$Tags.p,
+   _L.fromArray([]),
+   _L.fromArray([$Html.text("Written by ")
+                ,A2($Html$Tags.a,
+                _L.fromArray([$Html$Attributes.href("https://erewhon.flatland.org/")]),
+                _L.fromArray([$Html.text("Steven Byrnes")]))]))]));
+   var onEnter = F2(function (handle,
+   value) {
+      return A4($Html.on,
+      "keydown",
+      A2($Html.when,
+      function (k) {
+         return _U.eq(k.keyCode,13);
+      },
+      $Html.getKeyboardEvent),
+      handle,
+      $Basics.always(value));
+   });
+   var bold = _L.fromArray([A2($Html.prop,
+   "font-weight",
+   "bold")]);
+   var wordbreak = _L.fromArray([A2($Html.prop,
+   "word-break",
+   "break-word")]);
+   var topPad = _L.fromArray([A2($Html.prop,
+   "margin-top",
+   "1em")]);
+   var deleteButton = _L.fromArray([A2($Html.prop,
+   "float",
+   "right")]);
+   var textStyle = _L.fromArray([A2($Html.prop,
+                                "height",
+                                "200px")
+                                ,A2($Html.prop,
+                                "width",
+                                "450px")]);
+   var UpdateDate = function (a) {
+      return {ctor: "UpdateDate"
+             ,_0: a};
+   };
+   var UpdateField = function (a) {
+      return {ctor: "UpdateField"
+             ,_0: a};
+   };
+   var Delete = function (a) {
+      return {ctor: "Delete"
+             ,_0: a};
+   };
+   var Add = {ctor: "Add"};
+   var NoOp = {ctor: "NoOp"};
+   var actions = $Graphics$Input.input(NoOp);
+   var schnippetEntry = F2(function (schnippetDate,
+   schnippetValue) {
+      return A2($Html$Tags.header,
+      _L.fromArray([$Html$Attributes.id("header")]),
+      _L.fromArray([A2($Html$Tags.h1,
+                   _L.fromArray([]),
+                   _L.fromArray([$Html.text("Schnippets")]))
+                   ,A2($Html$Tags.p,
+                   _L.fromArray([]),
+                   _L.fromArray([$Html.text("Enter a schnippet:")]))
+                   ,A2($Html$Tags.input,
+                   _L.fromArray([$Html$Attributes.id("new-date")
+                                ,$Html$Attributes.required(true)
+                                ,$Html$Attributes.placeholder("Enter date")
+                                ,$Html$Attributes.name("newDate")
+                                ,$Html$Attributes.value(schnippetDate)
+                                ,A4($Html.on,
+                                "input",
+                                $Html.getValue,
+                                actions.handle,
+                                UpdateDate)]),
+                   _L.fromArray([]))
+                   ,A2($Html$Tags.br,
+                   _L.fromArray([]),
+                   _L.fromArray([]))
+                   ,A2($Html$Tags.input,
+                   _L.fromArray([$Html$Attributes.id("new-schnippet")
+                                ,$Html$Attributes.placeholder("What did you do today?")
+                                ,$Html$Attributes.autofocus(true)
+                                ,$Html$Attributes.required(true)
+                                ,$Html$Attributes.value(schnippetValue)
+                                ,$Html$Attributes.name("newSchnippet")
+                                ,A4($Html.on,
+                                "input",
+                                $Html.getValue,
+                                actions.handle,
+                                UpdateField)
+                                ,A2(onEnter,actions.handle,Add)
+                                ,$Html.style(_L.append(textStyle,
+                                _L.append(topPad,wordbreak)))]),
+                   _L.fromArray([]))
+                   ,A2($Html$Tags.br,
+                   _L.fromArray([]),
+                   _L.fromArray([]))
+                   ,A2($Html$Tags.button,
+                   _L.fromArray([$Html$Attributes.id("save-schnippet")
+                                ,A2($Html$Events.onclick,
+                                actions.handle,
+                                $Basics.always(Add))
+                                ,$Html.style(topPad)]),
+                   _L.fromArray([$Html.text("Save")]))]));
+   });
+   var schnippetItem = function (schnippet) {
+      return A2($Html$Tags.span,
+      _L.fromArray([]),
+      _L.fromArray([A2($Html$Tags.dt,
+                   _L.fromArray([$Html.style(bold)]),
+                   _L.fromArray([$Html.text("I don\'t believe in dates")
+                                ,A2($Html$Tags.button,
+                                _L.fromArray([$Html$Attributes.$class("delete-button")
+                                             ,$Html.style(deleteButton)
+                                             ,A2($Html$Events.onclick,
+                                             actions.handle,
+                                             $Basics.always(Delete(schnippet.id)))]),
+                                _L.fromArray([$Html.text("Delete")]))]))
+                   ,A2($Html$Tags.dd,
+                   _L.fromArray([]),
+                   _L.fromArray([A2($Html$Tags.div,
+                   _L.fromArray([$Html$Attributes.$class("view")]),
+                   _L.fromArray([A2($Html$Tags.span,
+                   _L.fromArray([]),
+                   _L.fromArray([$Html.text(schnippet.description)]))]))]))]));
+   };
+   var schnippetList = function (schnippets) {
+      return A2($Html$Tags.section,
+      _L.fromArray([$Html$Attributes.id("main")]),
+      _L.fromArray([A2($Html$Tags.p,
+                   _L.fromArray([]),
+                   _L.fromArray([$Html.text("Previous schnippets:")]))
+                   ,A2($Html$Tags.dl,
+                   _L.fromArray([$Html$Attributes.id("schnippet-list")]),
+                   A2($List.map,
+                   schnippetItem,
+                   schnippets))]));
+   };
+   var view = function (state) {
+      return A2($Html$Tags.div,
+      _L.fromArray([$Html$Attributes.$class("someclass")]),
+      _L.fromArray([A2($Html$Tags.section,
+                   _L.fromArray([$Html$Attributes.id("schnippetsapp")]),
+                   _L.fromArray([A3($Html$Optimize$RefEq.lazy2,
+                                schnippetEntry,
+                                state.dateField,
+                                state.field)
+                                ,A2($Html$Optimize$RefEq.lazy,
+                                schnippetList,
+                                state.schnippets)]))
+                   ,infoFooter]));
+   };
+   var scene = F2(function (state,
+   _v0) {
+      return function () {
+         switch (_v0.ctor)
+         {case "_Tuple2":
+            return A4($Graphics$Element.container,
+              _v0._0,
+              _v0._1,
+              $Graphics$Element.midTop,
+              A3($Html.toElement,
+              550,
+              _v0._1,
+              view(state)));}
+         _E.Case($moduleName,
+         "on line 215, column 3 to 57");
+      }();
+   });
+   var emptyState = {_: {}
+                    ,dateField: ""
+                    ,field: ""
+                    ,schnippets: _L.fromArray([])
+                    ,uid: 0};
+   var startingState = emptyState;
+   var newSchnippet = F3(function (dte,
+   txt,
+   id) {
+      return {_: {}
+             ,date: dte
+             ,description: A2($Debug.watch,
+             "A new schnippet",
+             txt)
+             ,id: id};
+   });
+   var step = F2(function (action,
+   state) {
+      return function () {
+         var _v4 = A2($Debug.watch,
+         "Current action",
+         action);
+         switch (_v4.ctor)
+         {case "Add":
+            return _U.replace([["uid"
+                               ,A2($Debug.watch,
+                               "Schnippet ID",
+                               state.uid + 1)]
+                              ,["dateField",""]
+                              ,["field",""]
+                              ,["schnippets"
+                               ,$String.isEmpty(state.field) ? state.schnippets : _L.append(state.schnippets,
+                               _L.fromArray([A3(newSchnippet,
+                               state.dateField,
+                               state.field,
+                               state.uid)]))]],
+              state);
+            case "Delete":
+            return _U.replace([["schnippets"
+                               ,A2($List.filter,
+                               function (t) {
+                                  return !_U.eq(t.id,_v4._0);
+                               },
+                               state.schnippets)]],
+              state);
+            case "NoOp": return state;
+            case "UpdateDate":
+            return _U.replace([["dateField"
+                               ,_v4._0]],
+              state);
+            case "UpdateField":
+            return _U.replace([["field"
+                               ,_v4._0]],
+              state);}
+         _E.Case($moduleName,
+         "between lines 66 and 86");
+      }();
+   });
+   var state = A3($Signal.foldp,
+   step,
+   startingState,
+   actions.signal);
+   var main = A3($Signal.lift2,
+   scene,
+   state,
+   $Window.dimensions);
+   var Schnippet = F3(function (a,
+   b,
+   c) {
+      return {_: {}
+             ,date: a
+             ,description: b
+             ,id: c};
+   });
+   var State = F4(function (a,
+   b,
+   c,
+   d) {
+      return {_: {}
+             ,dateField: b
+             ,field: c
+             ,schnippets: a
+             ,uid: d};
+   });
+   _elm.Schnippets.values = {_op: _op
+                            ,State: State
+                            ,Schnippet: Schnippet
+                            ,newSchnippet: newSchnippet
+                            ,emptyState: emptyState
+                            ,NoOp: NoOp
+                            ,Add: Add
+                            ,Delete: Delete
+                            ,UpdateField: UpdateField
+                            ,UpdateDate: UpdateDate
+                            ,step: step
+                            ,view: view
+                            ,textStyle: textStyle
+                            ,deleteButton: deleteButton
+                            ,topPad: topPad
+                            ,wordbreak: wordbreak
+                            ,bold: bold
+                            ,onEnter: onEnter
+                            ,schnippetEntry: schnippetEntry
+                            ,schnippetList: schnippetList
+                            ,schnippetItem: schnippetItem
+                            ,infoFooter: infoFooter
+                            ,main: main
+                            ,scene: scene
+                            ,state: state
+                            ,startingState: startingState
+                            ,actions: actions};
+   return _elm.Schnippets.values;
+};

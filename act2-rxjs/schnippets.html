@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="../schnippets.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src='https://cdn.firebase.com/js/client/1.1.1/firebase.js'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/rxjs/2.3.18/rx.all.js'></script>
+    <script type="text/javascript" src="application.js"></script>
+  </head>
+
+  <body>
+    <h1>Schnippets</h1>
+
+    <div>
+      <form id='schnippet-form'>
+        <p>Enter a schnippet:</p>
+
+        <input id="new-date" required="required" type="date" placeholder="Enter date">
+
+        <br/>
+
+        <textarea id="new-schnippet" class="toppad" placeholder="What did you do today?"
+                  required="required" autofocus=true></textarea>
+
+        <br/>
+
+        <input id="save-schnippet" type="submit" class="toppad" value="Save">
+      </form>
+    </div>
+
+    <div class="toppad">
+      Previous schnippets:
+      <dl id="schnippet-list">
+      </dl>
+    </div>
+
+    <footer id="info">
+      <p>Written by <a href="https://erewhon.flatland.org/">Steven Byrnes</a>.</p>
+  </body>
+</html>
